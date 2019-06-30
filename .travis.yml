@@ -1,0 +1,42 @@
+language: ruby
+
+rvm:
+  - 2.6
+
+notifications:
+  email:
+    recipients:
+      - ramonsantos.pe@gmail.com
+    on_success: always
+    on_failure: always
+
+before_install:
+  - gem update --system
+  - gem install bundler
+cache: bundler
+
+branches:
+  only:
+    - master
+
+services:
+  - postgresql
+
+before_script:
+  - cp config/database.yml.travis config/database.yml
+  - psql -c 'create database travis_ci_test;' -U postgres
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+
+deploy:
+  provider: heroku
+  app: neptune
+  api_key:
+    secure: "$HEROKU_KEY"
+  run:
+    - "bundle exec rake db:migrate"
+    - restart
