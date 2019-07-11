@@ -33,6 +33,13 @@ rescue ActiveRecord::PendingMigrationError => e
 end
 
 RSpec.configure do |config|
+  Shoulda::Matchers.configure do |sm_config|
+    sm_config.integrate do |with|
+      with.test_framework :rspec
+      with.library :rails
+    end
+  end
+
   config.include FactoryBot::Syntax::Methods
 
   config.use_transactional_fixtures = true
