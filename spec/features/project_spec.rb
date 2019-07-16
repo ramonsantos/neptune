@@ -14,9 +14,9 @@ feature 'Projects', type: :feature do
       create(:project)
       visit(root_path)
 
-      expect(find(:xpath, '/html/body/table/tbody/tr/td[1]').text).to eq('Neptune')
-      expect(find(:xpath, '/html/body/table/tbody/tr/td[2]').text).to eq('2019-06-29')
-      expect(find(:xpath, '/html/body/table/tbody/tr/td[3]').text).to eq('A User Stories manager')
+      expect(find(:xpath, '/html/body/main/table/tbody/tr[1]/td[1]').text).to eq('Neptune')
+      expect(find(:xpath, '/html/body/main/table/tbody/tr[1]/td[2]').text).to eq('2019-06-29')
+      expect(find(:xpath, '/html/body/main/table/tbody/tr[1]/td[3]').text).to eq('A User Stories manager')
     end
   end
 
@@ -93,8 +93,7 @@ feature 'Projects', type: :feature do
     scenario 'user deletes a project' do
       create(:project)
       visit(projects_path)
-      find(:xpath, '/html/body/table/tbody/tr/td[6]/a').click
-
+      find(:xpath, '/html/body/main/table/tbody/tr[1]/td[6]/a').click
       expect(page).to have_content('Project was successfully destroyed.')
     end
   end
