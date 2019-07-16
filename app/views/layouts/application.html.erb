@@ -10,11 +10,15 @@
   </head>
 
   <body>
-    <header>
-      <h1>Neptune</h1>
+    <header class="header">
+      <h1>
+        <%= link_to('Neptune', root_path, class: 'class') %>
+      </h1>
     </header>
 
-    <%= yield %>
+    <main>
+      <%= yield %>
+    </main>
 
     <footer>
       Ramon Santos
