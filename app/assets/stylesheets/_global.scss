@@ -1,3 +1,43 @@
 body {
   font-family: 'Open Sans', sans-serif;
 }
+
+.main-content {
+  width: 1200px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.section-title {
+  h1 {
+    font-size: 1.75em;
+  }
+}
+
+.section-notice {
+
+}
+
+.section-projects-list {
+  ul {
+    padding-left: 0;
+  }
+}
+
+.project-item {
+  list-style: none;
+  border-top: 1px solid #ddd;
+
+  h2 {
+    font-weight: 400;
+  }
+
+  a {
+    text-decoration: none;
+    color: #3e4d5c;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+}
