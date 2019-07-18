@@ -11,12 +11,9 @@ feature 'Projects', type: :feature do
     end
 
     scenario 'user visits projects page with projects' do
-      create(:project)
+      project = create(:project)
       visit(root_path)
-
-      expect(find(:xpath, '/html/body/main/table/tbody/tr[1]/td[1]').text).to eq('Neptune')
-      expect(find(:xpath, '/html/body/main/table/tbody/tr[1]/td[2]').text).to eq('2019-06-29')
-      expect(find(:xpath, '/html/body/main/table/tbody/tr[1]/td[3]').text).to eq('A User Stories manager')
+      expect(page).to have_link('Neptune', href: project_path(project))
     end
   end
 

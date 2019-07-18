@@ -9,6 +9,8 @@ body {
 }
 
 .section-title {
+  border-bottom: 2px solid $principal-color;
+
   h1 {
     font-size: 1.75em;
   }
@@ -16,28 +18,4 @@ body {
 
 .section-notice {
 
-}
-
-.section-projects-list {
-  ul {
-    padding-left: 0;
-  }
-}
-
-.project-item {
-  list-style: none;
-  border-top: 1px solid #ddd;
-
-  h2 {
-    font-weight: 400;
-  }
-
-  a {
-    text-decoration: none;
-    color: #3e4d5c;
-  }
-
-  a:hover {
-    text-decoration: underline;
-  }
 }

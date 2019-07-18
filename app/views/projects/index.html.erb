@@ -1,15 +1,17 @@
 <section class="section-title">
-  <div>
-    <h1>Projects</h1>
-  </div>
-
-  <div>
-    <%= link_to 'New Project', new_project_path %>
-  </div>
+  <h1>Projects</h1>
 </section>
 
 <section class="section-notice">
   <p id="notice"><%= notice %></p>
+</section>
+
+<section class="section-projects-options">
+  <%= form_tag("/search", method: "get") do %>
+    <%= text_field_tag(:q) %>
+  <% end %>
+
+  <%= link_to 'New Project', new_project_path, class: 'btn btn-primary' %>
 </section>
 
 <section class="section-projects-list">
