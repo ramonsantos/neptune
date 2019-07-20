@@ -13,20 +13,26 @@
 
   <div class="field">
     <%= form.label :name %>
-    <%= form.text_field :name %>
+    <%= form.text_field :name, { class: 'field-250' } %>
   </div>
 
   <div class="field">
     <%= form.label :start_date %>
-    <%= form.text_field :start_date %>
+    <%= form.text_field :start_date, { class: 'field-250' } %>
   </div>
 
   <div class="field">
     <%= form.label :description %>
-    <%= form.text_area :description %>
+    <%= form.text_area :description, { class: 'field-900-100' } %>
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
+  <div class="section-actions">
+    <% cancel_path = project.id.present? ? project_path(@project) : projects_path %>
+
+    <%= link_to 'Cancel', cancel_path, class: 'btn' %>
+
+    <div class="btn btn-primary">
+      <%= form.button  %>
+    </div>
   </div>
 <% end %>

@@ -9,10 +9,23 @@
 	line-height: 20px;
   padding: 8px 12px 4px;
   text-decoration: none;
-  height: 24px;
+	height: 24px;
+	color: #2e2e2e;
+
+	button {
+		border: none;
+		background: none;
+		color: #fff;
+	}
+
+	button:hover {
+		color: #000;
+		background-repeat: repeat-x;
+	}
 }
 
 .btn:hover {
+	color: #000;
 	background-repeat: repeat-x;
 }
 
