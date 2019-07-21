@@ -1,10 +1,11 @@
 language: ruby
 
+rvm:
+  - 2.6.0
+
 global:
   - CC_TEST_REPORTER_ID=$CC_TEST_REPORTER_ID
   - RAILS_ENV=test
-rvm:
-  - 2.6.0
 
 addons:
   postgresql: 9.6
@@ -13,12 +14,13 @@ notifications:
   email:
     recipients:
       - ramonsantos.pe@gmail.com
-    on_success: always
+    on_success: change
     on_failure: always
 
 before_install:
   - gem update --system
   - gem install bundler
+
 cache: bundler
 
 branches:

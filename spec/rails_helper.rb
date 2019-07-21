@@ -1,12 +1,18 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 require 'simplecov'
 require 'simplecov-lcov'
 
-SimpleCov::Formatter::LcovFormatter.config do |c|
-  c.report_with_single_file = true
-  c.lcov_file_name = 'lcov.info'
+unless ENV['TRAVIS_CI_ENV']
+  SimpleCov::Formatter::LcovFormatter.config do |c|
+    c.report_with_single_file = true
+    c.lcov_file_name = 'lcov.info'
+  end
+
+  SimpleCov.formatter = SimpleCov::Formatter::LcovFormatter
 end
-SimpleCov.formatter = SimpleCov::Formatter::LcovFormatter
+
 SimpleCov.start 'rails' do
   add_filter [
     'app/channels',
@@ -17,7 +23,7 @@ end
 
 ENV['RAILS_ENV'] ||= 'test'
 
-require File.expand_path('../../config/environment', __FILE__)
+require File.expand_path('../config/environment', __dir__)
 
 abort('The Rails environment is running in production mode!') if Rails.env.production?
 
