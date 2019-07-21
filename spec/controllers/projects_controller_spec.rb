@@ -18,7 +18,7 @@ describe ProjectsController, type: :controller do
 
   describe 'GET #show' do
     it 'returns a success response' do
-      get(:show, params: { id: create(:project).to_param })
+      get(:show, params: { project_id: create(:project).to_param })
       expect(response).to be_successful
     end
   end
@@ -32,7 +32,7 @@ describe ProjectsController, type: :controller do
 
   describe 'GET #edit' do
     it 'returns a success response' do
-      get(:edit, params: { id: create(:project).to_param })
+      get(:edit, params: { project_id: create(:project).to_param })
       expect(response).to be_successful
     end
   end
@@ -67,13 +67,13 @@ describe ProjectsController, type: :controller do
       let(:new_attributes) { { name: 'New Name' } }
 
       it 'updates the requested project' do
-        put(:update, params: { id: project.to_param, project: new_attributes })
+        put(:update, params: { project_id: project.to_param, project: new_attributes })
         project.reload
         expect(project.name).to eq('New Name')
       end
 
       it 'redirects to the project' do
-        put(:update, params: { id: project.to_param, project: valid_attributes })
+        put(:update, params: { project_id: project.to_param, project: valid_attributes })
         expect(response).to redirect_to(project)
       end
     end
@@ -81,7 +81,7 @@ describe ProjectsController, type: :controller do
     context 'with invalid params' do
       it 'does not updates the Project' do
         expect {
-          put(:update, params: { id: project.to_param, project: invalid_attributes })
+          put(:update, params: { project_id: project.to_param, project: invalid_attributes })
         }.not_to change(Project, :first)
       end
     end
@@ -92,12 +92,12 @@ describe ProjectsController, type: :controller do
 
     it 'destroys the requested project' do
       expect {
-        delete(:destroy, params: { id: project.to_param })
+        delete(:destroy, params: { project_id: project.to_param })
       }.to change(Project, :count).by(-1)
     end
 
     it 'redirects to the projects list' do
-      delete(:destroy, params: { id: project.to_param })
+      delete(:destroy, params: { project_id: project.to_param })
       expect(response).to redirect_to(projects_url)
     end
   end
