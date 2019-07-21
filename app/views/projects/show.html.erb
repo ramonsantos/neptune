@@ -18,3 +18,12 @@
 <%= link_to 'Back', projects_path %> |
 <%= link_to 'Destroy', @project, method: :delete, data: { confirm: 'Are you sure?' } %> |
 <%= link_to 'Edit', edit_project_path(@project) %>
+
+<div>
+  <h2>Releases</h2>
+
+  <ul>
+    <li><%= link_to 'New Release', new_release_path %></li>
+    <li><%= link_to 'Releases', releases_path %></li>
+  </ul>
+</div>

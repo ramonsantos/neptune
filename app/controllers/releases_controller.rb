@@ -5,7 +5,7 @@ class ReleasesController < ApplicationController
 
   # GET /releases
   def index
-    @releases = Release.all
+    @releases = Release.where(project_id: params[:project_id])
   end
 
   # GET /releases/1
@@ -15,6 +15,7 @@ class ReleasesController < ApplicationController
   # GET /releases/new
   def new
     @release = Release.new
+    @release.project_id = params[:project_id]
   end
 
   # GET /releases/1/edit
@@ -26,7 +27,7 @@ class ReleasesController < ApplicationController
     @release = Release.new(release_params)
 
     if @release.save
-      redirect_to @release, notice: 'Release was successfully created.'
+      redirect_to release_path(@release.project_id, @release.id), notice: 'Release was successfully created.'
     else
       render :new
     end
@@ -35,7 +36,7 @@ class ReleasesController < ApplicationController
   # PATCH/PUT /releases/1
   def update
     if @release.update(release_params)
-      redirect_to @release, notice: 'Release was successfully updated.'
+      redirect_to release_path(@release.project_id, @release.id), notice: 'Release was successfully updated.'
     else
       render :edit
     end
@@ -51,7 +52,7 @@ class ReleasesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_release
-    @release = Release.find(params[:id])
+    @release = Release.find(params[:release_id])
   end
 
   # Only allow a trusted parameter "white list" through.

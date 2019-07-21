@@ -24,9 +24,9 @@
         <td><%= release.description %></td>
         <td><%= release.active %></td>
         <td><%= release.project_id %></td>
-        <td><%= link_to 'Show', release %></td>
-        <td><%= link_to 'Edit', edit_release_path(release) %></td>
-        <td><%= link_to 'Destroy', release, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', release_path(release.project_id, release.id) %></td>
+        <td><%= link_to 'Edit', edit_release_path(release.project_id, release.id) %></td>
+        <td><%= link_to 'Destroy', release_path(release.project_id, release.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
