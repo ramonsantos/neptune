@@ -40,9 +40,9 @@ describe ProjectsController, type: :controller do
   describe 'POST #create' do
     context 'with valid params' do
       it 'creates a new Project' do
-        expect {
+        expect do
           post(:create, params: { project: valid_attributes })
-        }.to change(Project, :count).by(1)
+        end.to change(Project, :count).by(1)
       end
 
       it 'redirects to the created project' do
@@ -53,9 +53,9 @@ describe ProjectsController, type: :controller do
 
     context 'with invalid params' do
       it 'does not creates a new Project' do
-        expect {
+        expect do
           post(:create, params: { project: invalid_attributes })
-        }.not_to change(Project, :count)
+        end.not_to change(Project, :count)
       end
     end
   end
@@ -80,9 +80,9 @@ describe ProjectsController, type: :controller do
 
     context 'with invalid params' do
       it 'does not updates the Project' do
-        expect {
+        expect do
           put(:update, params: { project_id: project.to_param, project: invalid_attributes })
-        }.not_to change(Project, :first)
+        end.not_to change(Project, :first)
       end
     end
   end
@@ -91,14 +91,14 @@ describe ProjectsController, type: :controller do
     before { project }
 
     it 'destroys the requested project' do
-      expect {
+      expect do
         delete(:destroy, params: { project_id: project.to_param })
-      }.to change(Project, :count).by(-1)
+      end.to change(Project, :count).by(-1)
     end
 
     it 'redirects to the projects list' do
       delete(:destroy, params: { project_id: project.to_param })
-      expect(response).to redirect_to(projects_url)
+      expect(response).to redirect_to(projects_path)
     end
   end
 end

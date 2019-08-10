@@ -2,27 +2,27 @@
 
 class ReleasesController < ApplicationController
   before_action :set_release, only: [:show, :edit, :update, :destroy]
+  before_action :project, only: [:index, :new]
 
-  # GET /releases
+  # GET /projects/:project_id/releases
   def index
     @releases = Release.where(project_id: params[:project_id])
   end
 
-  # GET /releases/1
+  # GET /projects/:project_id/releases/:release_id
   def show
   end
 
-  # GET /releases/new
+  # GET /projects/:project_id/releases/new
   def new
-    @release = Release.new
-    @release.project_id = params[:project_id]
+    @release = Release.new(project: project)
   end
 
-  # GET /releases/1/edit
+  # GET /projects/:project_id/releases/:release_id/edit
   def edit
   end
 
-  # POST /releases
+  # POST /projects/:project_id/releases
   def create
     @release = Release.new(release_params)
 
@@ -33,7 +33,7 @@ class ReleasesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /releases/1
+  # PATCH/PUT /projects/:project_id/releases/:release_id
   def update
     if @release.update(release_params)
       redirect_to release_path(@release.project_id, @release.id), notice: 'Release was successfully updated.'
@@ -42,7 +42,7 @@ class ReleasesController < ApplicationController
     end
   end
 
-  # DELETE /releases/1
+  # DELETE /projects/:project_id/releases/:release_id
   def destroy
     @release.destroy
     redirect_to releases_url, notice: 'Release was successfully destroyed.'
@@ -50,13 +50,21 @@ class ReleasesController < ApplicationController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_release
     @release = Release.find(params[:release_id])
   end
 
-  # Only allow a trusted parameter "white list" through.
   def release_params
     params.require(:release).permit(:name, :start_date, :finish_date, :description, :active, :project_id)
+  end
+
+  def project
+    @project ||= find_project
+  rescue
+    redirect_to projects_path
+  end
+
+  def find_project
+    Project.find(params[:project_id])
   end
 end

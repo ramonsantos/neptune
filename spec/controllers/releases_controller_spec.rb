@@ -4,42 +4,61 @@ require 'rails_helper'
 
 RSpec.describe ReleasesController, type: :controller do
   let(:valid_attributes) do
-    skip('Add a hash of attributes valid for your model')
+    {
+      project_id: @project.id,
+      name: 'Second Release'
+    }
   end
 
   let(:invalid_attributes) do
-    skip('Add a hash of attributes invalid for your model')
+    {
+      project_id: @project.id,
+      name: ''
+    }
   end
 
-  let(:valid_session) { {} }
+  before { @project = create(:project) }
 
   describe 'GET #index' do
-    it 'returns a success response' do
-      Release.create! valid_attributes
-      get :index, params: {}, session: valid_session
-      expect(response).to be_successful
+    context 'when there is a project ' do
+      it 'returns a success response' do
+        get(:index, params: { project_id: @project.id })
+        expect(response).to be_successful
+      end
+    end
+
+    context 'when there is no project' do
+      it 'returns a success response' do
+        get(:index, params: { project_id: 0 })
+        expect(response).to redirect_to(projects_path)
+      end
     end
   end
 
   describe 'GET #show' do
     it 'returns a success response' do
-      release = Release.create! valid_attributes
-      get :show, params: { id: release.to_param }, session: valid_session
+      release = create(:release)
+      get(:show, params: { project_id: @project, release_id: release.to_param })
       expect(response).to be_successful
     end
   end
 
   describe 'GET #new' do
     it 'returns a success response' do
-      get :new, params: { project_id: 2 }, session: valid_session
+      get(:new, params: { project_id: @project.id })
       expect(response).to be_successful
+    end
+
+    it 'redirect without project' do
+      get(:new, params: { project_id: 0 })
+      expect(response).to redirect_to(projects_path)
     end
   end
 
   describe 'GET #edit' do
     it 'returns a success response' do
-      release = Release.create! valid_attributes
-      get :edit, params: { id: release.to_param }, session: valid_session
+      release = create(:release)
+      get(:edit, params: { project_id: @project, release_id: release.to_param })
       expect(response).to be_successful
     end
   end
@@ -48,65 +67,85 @@ RSpec.describe ReleasesController, type: :controller do
     context 'with valid params' do
       it 'creates a new Release' do
         expect do
-          post :create, params: { release: valid_attributes }, session: valid_session
+          post(:create, params: { project_id: @project.id, release: valid_attributes })
         end.to change(Release, :count).by(1)
       end
 
       it 'redirects to the created release' do
-        post :create, params: { release: valid_attributes }, session: valid_session
-        expect(response).to redirect_to(Release.last)
+        post(:create, params: { project_id: @project.id, release: valid_attributes })
+        expect(response).to redirect_to(release_path(@project.id, Release.last.id))
       end
     end
 
     context 'with invalid params' do
-      it "returns a success response (i.e. to display the 'new' template)" do
-        post :create, params: { release: invalid_attributes }, session: valid_session
-        expect(response).to be_successful
+      it 'does not creates a new Release' do
+        expect do
+          post(:create, params: { project_id: @project.id, release: invalid_attributes })
+        end.not_to change(Project, :count)
       end
     end
   end
 
   describe 'PUT #update' do
+    before { @release = create(:release) }
+
     context 'with valid params' do
-      let(:new_attributes) do
-        skip('Add a hash of attributes valid for your model')
+      let(:params) do
+        {
+          project_id: @project.id,
+          release_id: @release.id,
+          release: valid_attributes
+        }
       end
 
       it 'updates the requested release' do
-        release = Release.create! valid_attributes
-        put :update, params: { id: release.to_param, release: new_attributes }, session: valid_session
-        release.reload
-        skip('Add assertions for updated state')
+        put(:update, params: params)
+        @release.reload
+        expect(@release.name).to eq('Second Release')
       end
 
       it 'redirects to the release' do
-        release = Release.create! valid_attributes
-        put :update, params: { id: release.to_param, release: valid_attributes }, session: valid_session
-        expect(response).to redirect_to(release)
+        put(:update, params: params)
+        expect(response).to redirect_to(release_path(@project.id, Release.last.id))
       end
     end
 
     context 'with invalid params' do
-      it "returns a success response (i.e. to display the 'edit' template)" do
-        release = Release.create! valid_attributes
-        put :update, params: { id: release.to_param, release: invalid_attributes }, session: valid_session
-        expect(response).to be_successful
+      let(:params) do
+        {
+          project_id: @project.id,
+          release_id: @release.id,
+          release: invalid_attributes
+        }
+      end
+
+      it 'does not updates the Release' do
+        expect do
+          put(:update, params: params)
+        end.not_to change(Release, :first)
       end
     end
   end
 
   describe 'DELETE #destroy' do
-    it 'destroys the requested release' do
-      release = Release.create! valid_attributes
+    before { @release = create(:release) }
+
+    let(:params) do
+      {
+        project_id: @project.id,
+        release_id: @release.id
+      }
+    end
+
+    it 'destroys the requested releases' do
       expect do
-        delete :destroy, params: { id: release.to_param }, session: valid_session
+        delete(:destroy, params: params)
       end.to change(Release, :count).by(-1)
     end
 
-    it 'redirects to the releases list' do
-      release = Release.create! valid_attributes
-      delete :destroy, params: { id: release.to_param }, session: valid_session
-      expect(response).to redirect_to(releases_url)
+    xit 'redirects to the releases list' do
+      delete(:destroy, params: params)
+      expect(response).to redirect_to(projects_path)
     end
   end
 end

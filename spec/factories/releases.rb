@@ -3,10 +3,15 @@
 FactoryBot.define do
   factory :release do
     name { 'First Release' }
-    start_date { '2019-07-21' }
-    finish_date { '2019-08-21' }
-    description { 'Description' }
-    active { false }
-    project { nil }
+    project
+
+    trait :default do
+      start_date { '2019-07-21' }
+      finish_date { '2019-08-21' }
+      description { 'Description' }
+      active { false }
+    end
+
+    factory :release_default, traits: [:default]
   end
 end
