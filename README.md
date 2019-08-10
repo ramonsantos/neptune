@@ -17,6 +17,10 @@ docker-compose up -d
 bundle install
 ```
 
+``` bash
+yarn install
+```
+
 ### Create and migrate database
 ``` bash
 rake db:create db:migrate
