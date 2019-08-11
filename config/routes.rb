@@ -5,7 +5,11 @@ Rails.application.routes.draw do
 
   resources :projects, param: :project_id do
     member do
-      resources :releases, param: :release_id
+      resources :releases, param: :release_id do
+        member do
+          resources :user_stories, param: :user_story_id
+        end
+      end
     end
   end
 end

@@ -5,4 +5,5 @@ class Release < ApplicationRecord
   validates :project_id, presence: true
 
   belongs_to :project
+  has_many :user_stories
 end
