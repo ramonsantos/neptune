@@ -10,6 +10,7 @@ class ProjectsController < ApplicationController
 
   # GET /projects/1
   def show
+    @releases = @project.releases.where(active: true).includes(:user_stories)
   end
 
   # GET /projects/new

@@ -1,9 +1,10 @@
-<p id="notice"><%= notice %></p>
+<section class="section-title">
+  <h1><%= @project.name %></h1>
+</section>
 
-<p>
-  <strong>Name:</strong>
-  <%= @project.name %>
-</p>
+<section class="section-notice">
+  <p id="notice"><%= notice %></p>
+</section>
 
 <p>
   <strong>Start date:</strong>
@@ -21,9 +22,16 @@
 
 <div>
   <h2>Releases</h2>
-
   <ul>
     <li><%= link_to 'New Release', new_release_path %></li>
-    <li><%= link_to 'Releases', releases_path %></li>
+    <li><%= link_to 'All Releases', releases_path %></li>
   </ul>
+
+  <% @releases.each do |release| %>
+    <h3><%= link_to(release.name, release_path(@project.id, release.id)) %></h3>
+
+    <% release.user_stories.each do |user_story| %>
+      <h4><%= link_to(user_story.name, user_story_path(@project.id, release.id, user_story.id)) %></h4>
+    <% end %>
+  <% end %>
 </div>

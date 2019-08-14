@@ -51,7 +51,7 @@ class UserStoriesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_user_story
-    @user_story = UserStory.find(params[:id])
+    @user_story = UserStory.find(params[:user_story_id])
   end
 
   # Only allow a trusted parameter "white list" through.
