@@ -4,6 +4,7 @@ class CreateUserStories < ActiveRecord::Migration[6.0]
       t.integer :number
       t.string :name
       t.text :description
+      t.references :release, null: false, foreign_key: true
 
       t.timestamps
     end

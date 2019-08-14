@@ -39,9 +39,12 @@ ActiveRecord::Schema.define(version: 2019_08_11_181454) do
     t.integer "number"
     t.string "name"
     t.text "description"
+    t.bigint "release_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["release_id"], name: "index_user_stories_on_release_id"
   end
 
   add_foreign_key "releases", "projects"
+  add_foreign_key "user_stories", "releases"
 end
