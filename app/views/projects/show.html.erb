@@ -18,17 +18,17 @@
 
 <%= link_to 'Back', projects_path %> |
 <%= link_to 'Destroy', @project, method: :delete, data: { confirm: 'Are you sure?' } %> |
-<%= link_to 'Edit', edit_project_path(@project) %>
+<%= link_to 'Edit', edit_project_path(@project) %> |
+<%= link_to 'New Release', new_release_path %> |
+<%= link_to 'All Releases', releases_path %>
 
 <div>
   <h2>Releases</h2>
-  <ul>
-    <li><%= link_to 'New Release', new_release_path %></li>
-    <li><%= link_to 'All Releases', releases_path %></li>
-  </ul>
 
   <% @releases.each do |release| %>
-    <h3><%= link_to(release.name, release_path(@project.id, release.id)) %></h3>
+    <h3><%= release.name %></h3>
+    >> <%= link_to('show', release_path(@project.id, release.id)) %> |
+    <%= link_to('edit', edit_release_path(@project.id, release.id)) %>
 
     <% release.user_stories.each do |user_story| %>
       <h4><%= link_to(user_story.name, user_story_path(@project.id, release.id, user_story.id)) %></h4>

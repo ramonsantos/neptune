@@ -1,34 +1,34 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @release.name %>
-</p>
+<h1><%= @release.name %></h1>
 
 <p>
-  <strong>Start date:</strong>
-  <%= @release.start_date %>
+  <%= @release.start_date %> - <%= @release.finish_date %>
 </p>
 
-<p>
-  <strong>Finish date:</strong>
-  <%= @release.finish_date %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @release.description %>
-</p>
-
-<p>
-  <strong>Active:</strong>
-  <%= @release.active %>
-</p>
-
-<p>
-  <strong>Project:</strong>
-  <%= @release.project_id %>
-</p>
-
+Make Active/Inactive |
+<%= link_to 'New User Story', new_user_story_path %> |
 <%= link_to 'Edit', edit_release_path(@release) %> |
+<%= link_to 'Destroy', @release, method: :delete, data: { confirm: 'Are you sure?' } %> |
+
 <%= link_to 'Back', releases_path(@release.project_id) %>
+
+<div>
+  <h2>To Do</h2>
+
+  <% @release.user_stories.each do |user_story| %>
+    <h3><%= link_to(user_story.name, user_story_path(@release.project.id, @release.id, user_story.id)) %></h3>
+  <% end %>
+</div>
+
+<div>
+  <h2>Doing</h2>
+</div>
+
+<div>
+  <h2>Done</h2>
+</div>
+
+<div>
+  <h2>Aborted</h2>
+</div>
