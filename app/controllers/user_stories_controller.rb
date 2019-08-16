@@ -2,6 +2,7 @@
 
 class UserStoriesController < ApplicationController
   before_action :set_user_story, only: [:show, :edit, :update, :destroy]
+  before_action :release, only: [:new]
 
   # GET /user_stories
   def index
@@ -14,7 +15,7 @@ class UserStoriesController < ApplicationController
 
   # GET /user_stories/new
   def new
-    @user_story = UserStory.new
+    @user_story = UserStory.new(release: release)
   end
 
   # GET /user_stories/1/edit
@@ -26,7 +27,7 @@ class UserStoriesController < ApplicationController
     @user_story = UserStory.new(user_story_params)
 
     if @user_story.save
-      redirect_to @user_story, notice: 'User story was successfully created.'
+      redirect_to release_path(params[:project_id], params[:release_id]), notice: 'User story was successfully created.'
     else
       render :new
     end
@@ -35,7 +36,7 @@ class UserStoriesController < ApplicationController
   # PATCH/PUT /user_stories/1
   def update
     if @user_story.update(user_story_params)
-      redirect_to @user_story, notice: 'User story was successfully updated.'
+      redirect_to release_path(params[:project_id], params[:release_id]), notice: 'User story was successfully updated.'
     else
       render :edit
     end
@@ -44,7 +45,7 @@ class UserStoriesController < ApplicationController
   # DELETE /user_stories/1
   def destroy
     @user_story.destroy
-    redirect_to user_stories_url, notice: 'User story was successfully destroyed.'
+    redirect_to release_path(params[:project_id], params[:release_id]), notice: 'User story was successfully destroyed.'
   end
 
   private
@@ -56,6 +57,16 @@ class UserStoriesController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def user_story_params
-    params.require(:user_story).permit(:number, :name, :description)
+    params.require(:user_story).permit(:number, :name, :description, :release_id)
+  end
+
+  def release
+    @release ||= find_release
+  rescue
+    redirect_to project_path(project_id: params[:project_id])
+  end
+
+  def find_release
+    Release.find(params[:release_id])
   end
 end

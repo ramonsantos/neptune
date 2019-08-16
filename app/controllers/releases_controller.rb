@@ -45,7 +45,7 @@ class ReleasesController < ApplicationController
   # DELETE /projects/:project_id/releases/:release_id
   def destroy
     @release.destroy
-    redirect_to releases_url, notice: 'Release was successfully destroyed.'
+    redirect_to project_path(params[:project_id]), notice: 'Release was successfully destroyed.'
   end
 
   private

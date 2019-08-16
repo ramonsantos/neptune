@@ -20,7 +20,7 @@ RSpec.describe ReleasesController, type: :controller do
   before { @project = create(:project) }
 
   describe 'GET #index' do
-    context 'when there is a project ' do
+    context 'when there is a project' do
       it 'returns a success response' do
         get(:index, params: { project_id: @project.id })
         expect(response).to be_successful
@@ -143,9 +143,9 @@ RSpec.describe ReleasesController, type: :controller do
       end.to change(Release, :count).by(-1)
     end
 
-    xit 'redirects to the releases list' do
+    it 'redirects to the releases list' do
       delete(:destroy, params: params)
-      expect(response).to redirect_to(projects_path)
+      expect(response).to redirect_to(project_path(@project))
     end
   end
 end
