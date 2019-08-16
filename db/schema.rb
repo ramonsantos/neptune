@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_11_181454) do
+ActiveRecord::Schema.define(version: 2019_08_16_051359) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "accept_tests", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.bigint "user_story_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_story_id"], name: "index_accept_tests_on_user_story_id"
+  end
 
   create_table "projects", force: :cascade do |t|
     t.string "name"
@@ -45,6 +54,7 @@ ActiveRecord::Schema.define(version: 2019_08_11_181454) do
     t.index ["release_id"], name: "index_user_stories_on_release_id"
   end
 
+  add_foreign_key "accept_tests", "user_stories"
   add_foreign_key "releases", "projects"
   add_foreign_key "user_stories", "releases"
 end

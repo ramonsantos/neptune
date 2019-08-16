@@ -80,7 +80,7 @@ RSpec.describe UserStoriesController, type: :controller do
     end
 
     context 'with invalid params' do
-      it 'does not creates a new Release' do
+      it 'does not creates a new UserStory' do
         expect do
           post(:create, params: { project_id: @project.id, release_id: @release.id, user_story: invalid_attributes })
         end.not_to change(Project, :count)
@@ -123,7 +123,7 @@ RSpec.describe UserStoriesController, type: :controller do
         }
       end
 
-      it 'does not updates the Release' do
+      it 'does not updates the UserStory' do
         expect do
           put(:update, params: params)
         end.not_to change(UserStory, :first)

@@ -7,7 +7,11 @@ Rails.application.routes.draw do
     member do
       resources :releases, param: :release_id do
         member do
-          resources :user_stories, param: :user_story_id
+          resources :user_stories, param: :user_story_id do
+            member do
+              resources :accept_tests, param: :accept_test_id
+            end
+          end
         end
       end
     end

@@ -1,11 +1,10 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :user_story do
-    release
+  factory :accept_test do
+    user_story
 
-    number { 1 }
-    name { 'Add new projects' }
+    name { 'should create projects' }
     description { 'Description...' }
   end
 end

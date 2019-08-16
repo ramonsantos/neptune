@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @accept_test.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @accept_test.description %>
+</p>
+
+<p>
+  <strong>User story:</strong>
+  <%= @accept_test.user_story_id %>
+</p>
+
+<%= link_to 'Edit', edit_accept_test_path(@accept_test) %> |
+<%= link_to 'Back', accept_tests_path %>

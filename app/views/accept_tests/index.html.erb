@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Accept Tests</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>User story</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @accept_tests.each do |accept_test| %>
+      <tr>
+        <td><%= accept_test.name %></td>
+        <td><%= accept_test.description %></td>
+        <td><%= accept_test.user_story_id %></td>
+        <td><%= link_to 'Show', accept_test %></td>
+        <td><%= link_to 'Edit', edit_accept_test_path(accept_test) %></td>
+        <td><%= link_to 'Destroy', accept_test, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Accept Test', new_accept_test_path %>
