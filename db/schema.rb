@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_16_051359) do
+ActiveRecord::Schema.define(version: 2019_08_16_235434) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,15 @@ ActiveRecord::Schema.define(version: 2019_08_16_051359) do
     t.index ["project_id"], name: "index_releases_on_project_id"
   end
 
+  create_table "tasks", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.bigint "user_story_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_story_id"], name: "index_tasks_on_user_story_id"
+  end
+
   create_table "user_stories", force: :cascade do |t|
     t.integer "number"
     t.string "name"
@@ -56,5 +65,6 @@ ActiveRecord::Schema.define(version: 2019_08_16_051359) do
 
   add_foreign_key "accept_tests", "user_stories"
   add_foreign_key "releases", "projects"
+  add_foreign_key "tasks", "user_stories"
   add_foreign_key "user_stories", "releases"
 end

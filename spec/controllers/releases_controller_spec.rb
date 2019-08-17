@@ -81,7 +81,7 @@ RSpec.describe ReleasesController, type: :controller do
       it 'does not creates a new Release' do
         expect do
           post(:create, params: { project_id: @project.id, release: invalid_attributes })
-        end.not_to change(Project, :count)
+        end.not_to change(Release, :count)
       end
     end
   end
