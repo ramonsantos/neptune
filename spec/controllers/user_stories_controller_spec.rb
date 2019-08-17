@@ -30,13 +30,6 @@ RSpec.describe UserStoriesController, type: :controller do
     @release = create(:release)
   end
 
-  describe 'GET #index' do
-    it 'returns a success response' do
-      get(:index, params: { project_id: @project.id, release_id: @release.id })
-      expect(response).to be_successful
-    end
-  end
-
   describe 'GET #show' do
     it 'returns a success response' do
       @user_story = create(:user_story)

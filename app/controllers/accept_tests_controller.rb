@@ -1,17 +1,8 @@
 # frozen_string_literal: true
 
 class AcceptTestsController < ApplicationController
-  before_action :set_accept_test, only: [:show, :edit, :update, :destroy]
+  before_action :set_accept_test, only: [:edit, :update, :destroy]
   before_action :user_story, only: [:new]
-
-  # GET /accept_tests
-  def index
-    @accept_tests = AcceptTest.all
-  end
-
-  # GET /accept_tests/1
-  def show
-  end
 
   # GET /accept_tests/new
   def new

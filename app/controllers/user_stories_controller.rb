@@ -2,15 +2,14 @@
 
 class UserStoriesController < ApplicationController
   before_action :set_user_story, only: [:show, :edit, :update, :destroy]
-  before_action :release, only: [:new]
-
-  # GET /user_stories
-  def index
-    @user_stories = UserStory.all
-  end
+  before_action :release, only: [:new, :show]
 
   # GET /user_stories/1
   def show
+    @accept_tests = AcceptTest.where(user_story_id: @user_story.id)
+    @tasks = Task.where(user_story_id: @user_story.id)
+    @project = Project.find(params[:project_id])
+    @release
   end
 
   # GET /user_stories/new

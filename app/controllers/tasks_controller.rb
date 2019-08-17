@@ -1,17 +1,8 @@
 # frozen_string_literal: true
 
 class TasksController < ApplicationController
-  before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :set_task, only: [:edit, :update, :destroy]
   before_action :user_story, only: [:new]
-
-  # GET /tasks
-  def index
-    @tasks = Task.all
-  end
-
-  # GET /tasks/1
-  def show
-  end
 
   # GET /tasks/new
   def new

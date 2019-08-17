@@ -7,11 +7,11 @@ Rails.application.routes.draw do
     member do
       resources :releases, param: :release_id do
         member do
-          resources :user_stories, param: :user_story_id do
+          resources :user_stories, param: :user_story_id, except: [:index] do
             member do
-              resources :accept_tests, param: :accept_test_id
+              resources :accept_tests, param: :accept_test_id, except: [:index, :show]
 
-              resources :tasks, param: :task_id
+              resources :tasks, param: :task_id, except: [:index, :show]
             end
           end
         end

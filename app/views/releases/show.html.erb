@@ -9,7 +9,7 @@
 Make Active/Inactive |
 <%= link_to 'New User Story', new_user_story_path %> |
 <%= link_to 'Edit', edit_release_path(@release) %> |
-<%= link_to 'Destroy', @release, method: :delete, data: { confirm: 'Are you sure?' } %> |
+<%= link_to 'Destroy', release_path(@release.project.id, @release.id), method: :delete, data: { confirm: 'Are you sure?' } %> |
 
 <%= link_to 'Back', releases_path(@release.project_id) %>
 

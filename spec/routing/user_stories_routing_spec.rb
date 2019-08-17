@@ -6,10 +6,6 @@ RSpec.describe UserStoriesController, type: :routing do
   BASE_URL = '/projects/1/releases/2/user_stories'
 
   describe 'routing' do
-    it 'routes to #index' do
-      expect(get: BASE_URL).to route_to('user_stories#index', project_id: '1', release_id: '2')
-    end
-
     it 'routes to #new' do
       expect(get: "#{BASE_URL}/new").to route_to('user_stories#new', project_id: '1', release_id: '2')
     end
