@@ -6,6 +6,12 @@ plugins:
     enabled: true
   editorconfig:
     enabled: true
+  fixme:
+    enabled: true
+  markdownlint:
+    enabled: true
+  scss-lint:
+    enabled: true
 
 exclude_patterns:
   - Gemfile.lock
