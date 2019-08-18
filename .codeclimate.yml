@@ -4,3 +4,11 @@ version: "2"
 plugins:
   brakeman:
     enabled: true
+  editorconfig:
+    enabled: true
+
+exclude_patterns:
+  - Gemfile.lock
+  - "**/*.png"
+  - db/
+  - "*.js"
