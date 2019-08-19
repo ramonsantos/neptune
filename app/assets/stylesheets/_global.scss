@@ -19,17 +19,17 @@ textarea:focus {
 }
 
 label {
+  color: #2e2e2e;
   display: block;
-  padding: 7px 0px;
   font-size: .900rem;
   font-weight: 600;
-  color: #2e2e2e;
+  padding: 7px 0;
 }
 
 .main-content {
-  width: 1000px;
-  margin-right: auto;
   margin-left: auto;
+  margin-right: auto;
+  width: 1000px;
 }
 
 .section-title {
@@ -49,13 +49,13 @@ label {
 }
 
 .field-900-100 {
-  width: 900px;
   height: 100px;
+  width: 900px;
 }
 
 .section-actions {
   background-color: #fafafa;
+  border-top: 1px solid #dddddd;
   margin-top: 20px;
   padding: 20px;
-  border-top: 1px solid #ddd;
 }

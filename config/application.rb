@@ -15,6 +15,7 @@ require 'action_text/engine'
 require 'action_view/railtie'
 require 'action_cable/engine'
 require 'sprockets/railtie'
+
 Bundler.require(*Rails.groups)
 
 module Neptune
@@ -26,12 +27,14 @@ module Neptune
     config.generators.system_tests = nil
 
     config.generators do |g|
-      g.test_framework :rspec,
-                       fixtures: false,
-                       view_specs: false,
-                       helper_specs: false,
-                       request_specs: false,
-                       routing_specs: true
+      g.test_framework(
+        :rspec,
+        fixtures: false,
+        view_specs: false,
+        helper_specs: false,
+        request_specs: false,
+        routing_specs: true
+      )
     end
   end
 end

@@ -15,16 +15,16 @@
 }
 
 .project-item {
+  border-top: 1px solid #dddddd;
   list-style: none;
-  border-top: 1px solid #ddd;
 
   h2 {
     font-weight: 400;
   }
 
   a {
-    text-decoration: none;
     color: #3e4d5c;
+    text-decoration: none;
   }
 
   a:hover {

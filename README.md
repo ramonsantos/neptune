@@ -5,35 +5,38 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/d4321e831abefbca3c04/test_coverage)](https://codeclimate.com/github/ramonsantos/neptune/test_coverage)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-
 ## Setup
 
 ### Run Docker containers
 
-``` bash
+```bash
 docker-compose up -d
 ```
 
 ### Install dependencies
-``` bash
+
+```bash
 bundle install
 ```
 
-``` bash
+```bash
 yarn install
 ```
 
 ### Create and migrate database
-``` bash
+
+```bash
 rake db:create db:migrate
 ```
 
 ### Run application
-``` bash
+
+```bash
 rails server
 ```
 
 ### Run tests
-``` bash
+
+```bash
 rspec
 ```
