@@ -11,6 +11,7 @@ class ReleasesController < ApplicationController
 
   # GET /projects/:project_id/releases/:release_id
   def show
+    @user_stories = @release.user_stories
   end
 
   # GET /projects/:project_id/releases/new
