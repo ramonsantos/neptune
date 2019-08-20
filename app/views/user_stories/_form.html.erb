@@ -31,6 +31,11 @@
     <%= form.text_field :release_id %>
   </div>
 
+  <div class="field">
+    <%= form.label :situation %>
+    <%= form.select :situation, UserStory.situations.values, selected: UserStory.situations[@user_story.situation] %>
+  </div>
+
   <div class="actions">
     <%= form.submit %>
   </div>

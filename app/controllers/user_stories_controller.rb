@@ -8,7 +8,6 @@ class UserStoriesController < ApplicationController
   def show
     @accept_tests = AcceptTest.where(user_story_id: @user_story.id)
     @tasks = Task.where(user_story_id: @user_story.id)
-    @project = Project.find(params[:project_id])
     @release
   end
 
@@ -56,7 +55,7 @@ class UserStoriesController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def user_story_params
-    params.require(:user_story).permit(:number, :name, :description, :release_id)
+    params.require(:user_story).permit(:number, :name, :description, :situation, :release_id)
   end
 
   def release

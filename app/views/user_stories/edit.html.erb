@@ -2,5 +2,5 @@
 
 <%= render 'form', user_story: @user_story %>
 
-<%= link_to 'Show', @user_story %> |
-<%= link_to 'Back', user_stories_path %>
+<%= link_to 'Show', user_story_path(params[:project_id], params[:release_id], @user_story.id) %> |
+<%= link_to 'Back', release_path(params[:project_id], params[:release_id]) %>

@@ -7,8 +7,8 @@
   <%= @user_story.description %>
 </p>
 
-<%= link_to 'Back', project_path(@project.id) %> |
-<%= link_to 'Edit', edit_user_story_path(@user_story) %> |
+<%= link_to 'Back', project_path(params[:project_id]) %> |
+<%= link_to 'Edit', edit_user_story_path(params[:project_id], params[:release_id], @user_story.id) %> |
 <%= link_to 'Destroy', @user_story, method: :delete, data: { confirm: 'Are you sure?' } %>
 
 <div>
@@ -20,8 +20,8 @@
     <h3><%= accept_test.name %></h3>
 
     Failing/Passed
-    <%= link_to 'Edit', edit_accept_test_path(@project.id, @release.id, @user_story.id, accept_test) %> |
-    <%= link_to 'Destroy', accept_test_path(@project.id, @release.id, @user_story.id, accept_test), method: :delete, data: { confirm: 'Are you sure?' } %>
+    <%= link_to 'Edit', edit_accept_test_path(params[:project_id], @release.id, @user_story.id, accept_test) %> |
+    <%= link_to 'Destroy', accept_test_path(params[:project_id], @release.id, @user_story.id, accept_test), method: :delete, data: { confirm: 'Are you sure?' } %>
   <% end %>
 </div>
 
@@ -34,7 +34,7 @@
     <h3><%= task.name %></h3>
 
     Failing/Passed
-    <%= link_to 'Edit', edit_task_path(@project.id, @release.id, @user_story.id, task) %> |
-    <%= link_to 'Destroy', task_path(@project.id, @release.id, @user_story.id, task), method: :delete, data: { confirm: 'Are you sure?' } %>
+    <%= link_to 'Edit', edit_task_path(params[:project_id], @release.id, @user_story.id, task) %> |
+    <%= link_to 'Destroy', task_path(params[:project_id], @release.id, @user_story.id, task), method: :delete, data: { confirm: 'Are you sure?' } %>
   <% end %>
 </div>

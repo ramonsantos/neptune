@@ -7,5 +7,6 @@ FactoryBot.define do
     number { 1 }
     name { 'Add new projects' }
     description { 'Description...' }
+    situation { 'todo' }
   end
 end

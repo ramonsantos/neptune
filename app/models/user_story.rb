@@ -5,7 +5,15 @@ class UserStory < ApplicationRecord
   has_many :accept_tests
   has_many :tasks
 
+  enum situation: {
+    todo: 'To Do',
+    doing: 'Doing',
+    done: 'Done',
+    aborted: 'Aborted'
+  }
+
   validates :name,        presence: true
   validates :description, presence: true
+  validates :situation,   presence: true
   validates :release_id,  presence: true
 end
