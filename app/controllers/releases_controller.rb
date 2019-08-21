@@ -56,7 +56,7 @@ class ReleasesController < ApplicationController
   end
 
   def release_params
-    params.require(:release).permit(:name, :start_date, :finish_date, :description, :active, :project_id)
+    params.require(:release).permit(:name, :start_date, :finish_date, :active, :project_id)
   end
 
   def project

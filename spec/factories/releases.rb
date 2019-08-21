@@ -8,7 +8,6 @@ FactoryBot.define do
     trait :default do
       start_date { '2019-07-21' }
       finish_date { '2019-08-21' }
-      description { 'Description' }
       active { false }
     end
 

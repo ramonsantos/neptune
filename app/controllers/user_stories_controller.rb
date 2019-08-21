@@ -55,7 +55,7 @@ class UserStoriesController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def user_story_params
-    params.require(:user_story).permit(:number, :name, :description, :situation, :release_id)
+    params.require(:user_story).permit(:name, :description, :situation, :release_id)
   end
 
   def release

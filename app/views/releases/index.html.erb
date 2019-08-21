@@ -8,7 +8,6 @@
       <th>Name</th>
       <th>Start date</th>
       <th>Finish date</th>
-      <th>Description</th>
       <th>Active</th>
       <th>Project</th>
       <th colspan="3"></th>
@@ -21,7 +20,6 @@
         <td><%= release.name %></td>
         <td><%= release.start_date %></td>
         <td><%= release.finish_date %></td>
-        <td><%= release.description %></td>
         <td><%= release.active %></td>
         <td><%= release.project_id %></td>
         <td><%= link_to 'Show', release_path(release.project_id, release.id) %></td>
