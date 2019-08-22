@@ -2,8 +2,8 @@
 
 class UserStory < ApplicationRecord
   belongs_to :release
-  has_many :accept_tests
-  has_many :tasks
+  has_many :accept_tests, dependent: :delete_all
+  has_many :tasks, dependent: :delete_all
 
   enum situation: {
     todo: 'To Do',

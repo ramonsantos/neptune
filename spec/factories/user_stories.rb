@@ -7,5 +7,20 @@ FactoryBot.define do
     name { 'Add new projects' }
     description { 'Description...' }
     situation { 'todo' }
+
+    trait :with_tasks do
+      after(:create) do |user_story|
+        create(:task, user_story: user_story)
+      end
+    end
+
+    trait :with_accept_tests do
+      after(:create) do |user_story|
+        create(:accept_test, user_story: user_story)
+      end
+    end
+
+    factory :user_story_with_tasks, traits: [:with_tasks]
+    factory :user_story_with_accept_tests, traits: [:with_accept_tests]
   end
 end

@@ -125,17 +125,61 @@ RSpec.describe UserStoriesController, type: :controller do
   end
 
   describe 'DELETE #destroy' do
-    before { @user_story = create(:user_story) }
+    context 'when simple UserStory' do
+      before { @user_story = create(:user_story) }
 
-    it 'destroys the requested user_story' do
-      expect do
+      it 'destroys the requested UserStory' do
+        expect do
+          delete(:destroy, params: resource_params)
+        end.to change(UserStory, :count).by(-1)
+      end
+
+      it 'redirects to the release page' do
         delete(:destroy, params: resource_params)
-      end.to change(UserStory, :count).by(-1)
+        expect(response).to redirect_to(release_path(@project.id, @release.id))
+      end
     end
 
-    it 'redirects to the release page' do
-      delete(:destroy, params: resource_params)
-      expect(response).to redirect_to(release_path(@project.id, @release.id))
+    context 'when UserStory with Tasks' do
+      before { @user_story = create(:user_story_with_tasks) }
+
+      it 'destroys the requested UserStory' do
+        expect do
+          delete(:destroy, params: resource_params)
+        end.to change(UserStory, :count).by(-1)
+      end
+
+      it 'destroys Tasks from requested UserStory' do
+        expect do
+          delete(:destroy, params: resource_params)
+        end.to change(Task, :count).by(-1)
+      end
+
+      it 'redirects to the release page' do
+        delete(:destroy, params: resource_params)
+        expect(response).to redirect_to(release_path(@project.id, @release.id))
+      end
+    end
+
+    context 'when UserStory with AcceptTest' do
+      before { @user_story = create(:user_story_with_accept_tests) }
+
+      it 'destroys the requested UserStory' do
+        expect do
+          delete(:destroy, params: resource_params)
+        end.to change(UserStory, :count).by(-1)
+      end
+
+      it 'destroys AcceptTest from requested UserStory' do
+        expect do
+          delete(:destroy, params: resource_params)
+        end.to change(AcceptTest, :count).by(-1)
+      end
+
+      it 'redirects to the release page' do
+        delete(:destroy, params: resource_params)
+        expect(response).to redirect_to(release_path(@project.id, @release.id))
+      end
     end
   end
 end
