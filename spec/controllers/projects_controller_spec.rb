@@ -9,6 +9,8 @@ describe ProjectsController, type: :controller do
 
   let(:project) { create(:project) }
 
+  let(:project_with_releases) { create(:project_with_releases) }
+
   describe 'GET #index' do
     it 'returns a success response' do
       get(:index, params: {})
@@ -88,17 +90,40 @@ describe ProjectsController, type: :controller do
   end
 
   describe 'DELETE #destroy' do
-    before { project }
+    context 'when simple Project' do
+      before { project }
 
-    it 'destroys the requested project' do
-      expect do
+      it 'destroys the requested project' do
+        expect do
+          delete(:destroy, params: { project_id: project.to_param })
+        end.to change(Project, :count).by(-1)
+      end
+
+      it 'redirects to the projects list' do
         delete(:destroy, params: { project_id: project.to_param })
-      end.to change(Project, :count).by(-1)
+        expect(response).to redirect_to(projects_path)
+      end
     end
 
-    it 'redirects to the projects list' do
-      delete(:destroy, params: { project_id: project.to_param })
-      expect(response).to redirect_to(projects_path)
+    context 'when Project with Releases' do
+      before { project_with_releases }
+
+      it 'destroys the requested project' do
+        expect do
+          delete(:destroy, params: { project_id: project_with_releases.to_param })
+        end.to change(Project, :count).by(-1)
+      end
+
+      it 'destroys Releases from requested project' do
+        expect do
+          delete(:destroy, params: { project_id: project_with_releases.to_param })
+        end.to change(Release, :count).by(-1)
+      end
+
+      it 'redirects to the projects list' do
+        delete(:destroy, params: { project_id: project_with_releases.to_param })
+        expect(response).to redirect_to(projects_path)
+      end
     end
   end
 end
