@@ -128,8 +128,6 @@ RSpec.describe ReleasesController, type: :controller do
   end
 
   describe 'DELETE #destroy' do
-    before { @release = create(:release) }
-
     let(:params) do
       {
         project_id: @project.id,
@@ -137,15 +135,40 @@ RSpec.describe ReleasesController, type: :controller do
       }
     end
 
-    it 'destroys the requested releases' do
-      expect do
+    context 'when simple Release' do
+      before { @release = create(:release) }
+
+      it 'destroys the requested releases' do
+        expect do
+          delete(:destroy, params: params)
+        end.to change(Release, :count).by(-1)
+      end
+
+      it 'redirects to the releases list' do
         delete(:destroy, params: params)
-      end.to change(Release, :count).by(-1)
+        expect(response).to redirect_to(project_path(@project))
+      end
     end
 
-    it 'redirects to the releases list' do
-      delete(:destroy, params: params)
-      expect(response).to redirect_to(project_path(@project))
+    context 'when release with UserStory' do
+      before { @release = create(:release_with_user_stories) }
+
+      it 'destroys the requested releases' do
+        expect do
+          delete(:destroy, params: params)
+        end.to change(Release, :count).by(-1)
+      end
+
+      it 'destroys UserStories from requested releases' do
+        expect do
+          delete(:destroy, params: params)
+        end.to change(UserStory, :count).by(-1)
+      end
+
+      it 'redirects to the releases list' do
+        delete(:destroy, params: params)
+        expect(response).to redirect_to(project_path(@project))
+      end
     end
   end
 end
