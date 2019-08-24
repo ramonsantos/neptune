@@ -57,6 +57,11 @@ RSpec.describe TasksController, type: :controller do
         end.to change(Task, :count).by(1)
       end
 
+      it 'shows flash notice' do
+        post(:create, params: { project_id: @project.id, release_id: @release.id, user_story_id: @user_story.id, task: valid_attributes })
+        expect(flash[:notice]).to eq('Task was successfully created.')
+      end
+
       it 'redirects to the created task' do
         post(:create, params: { project_id: @project.id, release_id: @release.id, user_story_id: @user_story.id, task: valid_attributes })
         expect(response).to redirect_to(user_story_path(@project.id, @release.id, @user_story.id))
@@ -92,6 +97,11 @@ RSpec.describe TasksController, type: :controller do
         expect(@task.name).to eq('Second Task')
       end
 
+      it 'shows flash notice' do
+        put(:update, params: params)
+        expect(flash[:notice]).to eq('Task was successfully updated.')
+      end
+
       it 'redirects to the task' do
         put(:update, params: params)
         expect(response).to redirect_to(user_story_path(@project.id, @release.id, @user_story.id))
@@ -124,6 +134,11 @@ RSpec.describe TasksController, type: :controller do
       expect do
         delete(:destroy, params: { project_id: @project.id, release_id: @release.id, user_story_id: @user_story.id, task_id: @task.id })
       end.to change(Task, :count).by(-1)
+    end
+
+    it 'shows flash notice' do
+      delete(:destroy, params: { project_id: @project.id, release_id: @release.id, user_story_id: @user_story.id, task_id: @task.id })
+      expect(flash[:notice]).to eq('Task was successfully destroyed.')
     end
 
     it 'redirects to the tasks list' do

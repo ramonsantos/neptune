@@ -66,6 +66,11 @@ RSpec.describe UserStoriesController, type: :controller do
         end.to change(UserStory, :count).by(1)
       end
 
+      it 'shows flash notice' do
+        post(:create, params: { project_id: @project.id, release_id: @release.id, user_story: valid_attributes })
+        expect(flash[:notice]).to eq('User story was successfully created.')
+      end
+
       it 'redirects to the created user_story' do
         post(:create, params: { project_id: @project.id, release_id: @release.id, user_story: valid_attributes })
         expect(response).to redirect_to(release_path(@project.id, Release.last.id))
@@ -100,6 +105,11 @@ RSpec.describe UserStoriesController, type: :controller do
         expect(@user_story.name).to eq('Second User Story')
       end
 
+      it 'shows flash notice' do
+        put(:update, params: params)
+        expect(flash[:notice]).to eq('User story was successfully updated.')
+      end
+
       it 'redirects to the user_story' do
         put(:update, params: params)
         expect(response).to redirect_to(release_path(@project.id, @release.id))
@@ -132,6 +142,11 @@ RSpec.describe UserStoriesController, type: :controller do
         expect do
           delete(:destroy, params: resource_params)
         end.to change(UserStory, :count).by(-1)
+      end
+
+      it 'shows flash notice' do
+        delete(:destroy, params: resource_params)
+        expect(flash[:notice]).to eq('User story was successfully destroyed.')
       end
 
       it 'redirects to the release page' do

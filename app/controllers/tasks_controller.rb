@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
 class TasksController < ApplicationController
+  include UserStoryActivities
+
   before_action :set_task, only: [:edit, :update, :destroy]
-  before_action :user_story, only: [:new]
 
   # GET /tasks/new
   def new
@@ -18,7 +19,7 @@ class TasksController < ApplicationController
     @task = Task.new(task_params)
 
     if @task.save
-      redirect_to user_story_path(params[:project_id], params[:release_id], params[:user_story_id]), notice: 'Task was successfully created.'
+      redirect_to_user_story('Task was successfully created.')
     else
       render :new
     end
@@ -27,7 +28,7 @@ class TasksController < ApplicationController
   # PATCH/PUT /tasks/1
   def update
     if @task.update(task_params)
-      redirect_to user_story_path(params[:project_id], params[:release_id], params[:user_story_id]), notice: 'Task was successfully updated.'
+      redirect_to_user_story('Task was successfully updated.')
     else
       render :edit
     end
@@ -36,7 +37,7 @@ class TasksController < ApplicationController
   # DELETE /tasks/1
   def destroy
     @task.destroy
-    redirect_to user_story_path(params[:project_id], params[:release_id], params[:user_story_id]), notice: 'Task was successfully destroyed.'
+    redirect_to_user_story('Task was successfully destroyed.')
   end
 
   private
@@ -47,15 +48,5 @@ class TasksController < ApplicationController
 
   def task_params
     params.require(:task).permit(:name, :description, :user_story_id)
-  end
-
-  def user_story
-    @user_story ||= find_user_story
-  rescue
-    redirect_to release_path(project_id: params[:project_id], release_id: params[:release_id])
-  end
-
-  def find_user_story
-    UserStory.find(params[:user_story_id])
   end
 end

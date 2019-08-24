@@ -6,8 +6,9 @@ class UserStoriesController < ApplicationController
 
   # GET /user_stories/1
   def show
-    @accept_tests = AcceptTest.where(user_story_id: @user_story.id)
-    @tasks = Task.where(user_story_id: @user_story.id)
+    condition = { user_story_id: @user_story.id }
+    @accept_tests = AcceptTest.where(condition)
+    @tasks = Task.where(condition)
     @release
   end
 
@@ -25,7 +26,7 @@ class UserStoriesController < ApplicationController
     @user_story = UserStory.new(user_story_params)
 
     if @user_story.save
-      redirect_to release_path(params[:project_id], params[:release_id]), notice: 'User story was successfully created.'
+      redirect_to_release('User story was successfully created.')
     else
       render :new
     end
@@ -34,7 +35,7 @@ class UserStoriesController < ApplicationController
   # PATCH/PUT /user_stories/1
   def update
     if @user_story.update(user_story_params)
-      redirect_to release_path(params[:project_id], params[:release_id]), notice: 'User story was successfully updated.'
+      redirect_to_release('User story was successfully updated.')
     else
       render :edit
     end
@@ -43,7 +44,7 @@ class UserStoriesController < ApplicationController
   # DELETE /user_stories/1
   def destroy
     @user_story.destroy
-    redirect_to release_path(params[:project_id], params[:release_id]), notice: 'User story was successfully destroyed.'
+    redirect_to_release('User story was successfully destroyed.')
   end
 
   private
@@ -66,5 +67,9 @@ class UserStoriesController < ApplicationController
 
   def find_release
     Release.find(params[:release_id])
+  end
+
+  def redirect_to_release(message)
+    redirect_to release_path(params[:project_id], params[:release_id]), notice: message
   end
 end

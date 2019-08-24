@@ -47,6 +47,11 @@ describe ProjectsController, type: :controller do
         end.to change(Project, :count).by(1)
       end
 
+      it 'shows flash notice' do
+        post(:create, params: { project: valid_attributes })
+        expect(flash[:notice]).to eq('Project was successfully created.')
+      end
+
       it 'redirects to the created project' do
         post(:create, params: { project: valid_attributes })
         expect(response).to redirect_to(Project.last)
@@ -74,6 +79,11 @@ describe ProjectsController, type: :controller do
         expect(project.name).to eq('New Name')
       end
 
+      it 'shows flash notice' do
+        put(:update, params: { project_id: project.to_param, project: new_attributes })
+        expect(flash[:notice]).to eq('Project was successfully updated.')
+      end
+
       it 'redirects to the project' do
         put(:update, params: { project_id: project.to_param, project: valid_attributes })
         expect(response).to redirect_to(project)
@@ -97,6 +107,11 @@ describe ProjectsController, type: :controller do
         expect do
           delete(:destroy, params: { project_id: project.to_param })
         end.to change(Project, :count).by(-1)
+      end
+
+      it 'shows flash notice' do
+        delete(:destroy, params: { project_id: project.to_param })
+        expect(flash[:notice]).to eq('Project was successfully destroyed.')
       end
 
       it 'redirects to the projects list' do

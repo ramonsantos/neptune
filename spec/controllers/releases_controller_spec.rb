@@ -71,6 +71,11 @@ RSpec.describe ReleasesController, type: :controller do
         end.to change(Release, :count).by(1)
       end
 
+      it 'shows flash notice' do
+        post(:create, params: { project_id: @project.id, release: valid_attributes })
+        expect(flash[:notice]).to eq('Release was successfully created.')
+      end
+
       it 'redirects to the created release' do
         post(:create, params: { project_id: @project.id, release: valid_attributes })
         expect(response).to redirect_to(release_path(@project.id, Release.last.id))
@@ -102,6 +107,11 @@ RSpec.describe ReleasesController, type: :controller do
         put(:update, params: params)
         @release.reload
         expect(@release.name).to eq('Second Release')
+      end
+
+      it 'shows flash notice' do
+        put(:update, params: params)
+        expect(flash[:notice]).to eq('Release was successfully updated.')
       end
 
       it 'redirects to the release' do
@@ -142,6 +152,11 @@ RSpec.describe ReleasesController, type: :controller do
         expect do
           delete(:destroy, params: params)
         end.to change(Release, :count).by(-1)
+      end
+
+      it 'shows flash notice' do
+        delete(:destroy, params: params)
+        expect(flash[:notice]).to eq('Release was successfully destroyed.')
       end
 
       it 'redirects to the releases list' do

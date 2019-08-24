@@ -57,6 +57,11 @@ RSpec.describe AcceptTestsController, type: :controller do
         end.to change(AcceptTest, :count).by(1)
       end
 
+      it 'shows flash notice' do
+        post(:create, params: { project_id: @project.id, release_id: @release.id, user_story_id: @user_story.id, accept_test: valid_attributes })
+        expect(flash[:notice]).to eq('Accept test was successfully created.')
+      end
+
       it 'redirects to the created accept_test' do
         post(:create, params: { project_id: @project.id, release_id: @release.id, user_story_id: @user_story.id, accept_test: valid_attributes })
         expect(response).to redirect_to(user_story_path(@project.id, @release.id, @user_story.id))
@@ -92,6 +97,11 @@ RSpec.describe AcceptTestsController, type: :controller do
         expect(@accept_test.name).to eq('Second Accept Test')
       end
 
+      it 'shows flash notice' do
+        put(:update, params: params)
+        expect(flash[:notice]).to eq('Accept test was successfully updated.')
+      end
+
       it 'redirects to the accept_test' do
         put(:update, params: params)
         expect(response).to redirect_to(user_story_path(@project.id, @release.id, @user_story.id))
@@ -124,6 +134,11 @@ RSpec.describe AcceptTestsController, type: :controller do
       expect do
         delete(:destroy, params: { project_id: @project.id, release_id: @release.id, user_story_id: @user_story.id, accept_test_id: @accept_test.id })
       end.to change(AcceptTest, :count).by(-1)
+    end
+
+    it 'shows flash notice' do
+      delete(:destroy, params: { project_id: @project.id, release_id: @release.id, user_story_id: @user_story.id, accept_test_id: @accept_test.id })
+      expect(flash[:notice]).to eq('Accept test was successfully destroyed.')
     end
 
     it 'redirects to the accept_tests list' do
