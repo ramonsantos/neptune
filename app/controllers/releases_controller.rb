@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class ReleasesController < ApplicationController
-  before_action :set_release, only: [:show, :edit, :update, :destroy]
-  before_action :project, only: [:index, :new]
+  before_action :set_release, only: %i[show edit update destroy]
+  before_action :project, only: %i[index new]
 
   # GET /projects/:project_id/releases
   def index
@@ -20,15 +20,15 @@ class ReleasesController < ApplicationController
   end
 
   # GET /projects/:project_id/releases/:release_id/edit
-  def edit
-  end
+  def edit; end
 
   # POST /projects/:project_id/releases
   def create
     @release = Release.new(release_params)
 
     if @release.save
-      redirect_to release_path(@release.project_id, @release.id), notice: 'Release was successfully created.'
+      redirect_to release_path(@release.project_id, @release.id),
+                  notice: 'Release was successfully created.'
     else
       render :new
     end
@@ -37,7 +37,8 @@ class ReleasesController < ApplicationController
   # PATCH/PUT /projects/:project_id/releases/:release_id
   def update
     if @release.update(release_params)
-      redirect_to release_path(@release.project_id, @release.id), notice: 'Release was successfully updated.'
+      redirect_to release_path(@release.project_id, @release.id),
+                  notice: 'Release was successfully updated.'
     else
       render :edit
     end
@@ -46,7 +47,8 @@ class ReleasesController < ApplicationController
   # DELETE /projects/:project_id/releases/:release_id
   def destroy
     @release.destroy
-    redirect_to project_path(params[:project_id]), notice: 'Release was successfully destroyed.'
+    redirect_to project_path(params[:project_id]),
+                notice: 'Release was successfully destroyed.'
   end
 
   private
@@ -56,12 +58,18 @@ class ReleasesController < ApplicationController
   end
 
   def release_params
-    params.require(:release).permit(:name, :start_date, :finish_date, :active, :project_id)
+    params.require(:release).permit(
+      :name,
+      :start_date,
+      :finish_date,
+      :active,
+      :project_id
+    )
   end
 
   def project
     @project ||= find_project
-  rescue
+  rescue StandardError
     redirect_to projects_path
   end
 

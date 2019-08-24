@@ -22,7 +22,11 @@ RSpec.describe UserStoriesController, type: :controller do
   end
 
   let(:resource_params) do
-    { project_id: @project.id, release_id: @release.id, user_story_id: @user_story.id }
+    {
+      project_id: @project.id,
+      release_id: @release.id,
+      user_story_id: @user_story.id
+    }
   end
 
   before do
@@ -61,22 +65,45 @@ RSpec.describe UserStoriesController, type: :controller do
   describe 'POST #create' do
     context 'with valid params' do
       it 'creates a new UserStory' do
-        expect do
-          post(:create, params: { project_id: @project.id, release_id: @release.id, user_story: valid_attributes })
-        end.to change(UserStory, :count).by(1)
+        expect {
+          post(
+            :create,
+            params: {
+              project_id: @project.id,
+              release_id: @release.id,
+              user_story: valid_attributes
+            }
+          )
+        }.to change(UserStory, :count).by(1)
       end
 
       it 'redirects to the created user_story' do
-        post(:create, params: { project_id: @project.id, release_id: @release.id, user_story: valid_attributes })
-        expect(response).to redirect_to(release_path(@project.id, Release.last.id))
+        post(
+          :create,
+          params: {
+            project_id: @project.id,
+            release_id: @release.id,
+            user_story: valid_attributes
+          }
+        )
+        expect(response).to redirect_to(
+          release_path(@project.id, Release.last.id)
+        )
       end
     end
 
     context 'with invalid params' do
       it 'does not creates a new UserStory' do
-        expect do
-          post(:create, params: { project_id: @project.id, release_id: @release.id, user_story: invalid_attributes })
-        end.not_to change(Project, :count)
+        expect {
+          post(
+            :create,
+            params: {
+              project_id: @project.id,
+              release_id: @release.id,
+              user_story: invalid_attributes
+            }
+          )
+        }.not_to change(Project, :count)
       end
     end
   end
@@ -117,9 +144,7 @@ RSpec.describe UserStoriesController, type: :controller do
       end
 
       it 'does not updates the UserStory' do
-        expect do
-          put(:update, params: params)
-        end.not_to change(UserStory, :first)
+        expect { put(:update, params: params) }.not_to change(UserStory, :first)
       end
     end
   end
@@ -129,9 +154,11 @@ RSpec.describe UserStoriesController, type: :controller do
       before { @user_story = create(:user_story) }
 
       it 'destroys the requested UserStory' do
-        expect do
-          delete(:destroy, params: resource_params)
-        end.to change(UserStory, :count).by(-1)
+        expect { delete(:destroy, params: resource_params) }.to change(
+          UserStory,
+          :count
+        )
+          .by(-1)
       end
 
       it 'redirects to the release page' do
@@ -144,15 +171,19 @@ RSpec.describe UserStoriesController, type: :controller do
       before { @user_story = create(:user_story_with_tasks) }
 
       it 'destroys the requested UserStory' do
-        expect do
-          delete(:destroy, params: resource_params)
-        end.to change(UserStory, :count).by(-1)
+        expect { delete(:destroy, params: resource_params) }.to change(
+          UserStory,
+          :count
+        )
+          .by(-1)
       end
 
       it 'destroys Tasks from requested UserStory' do
-        expect do
-          delete(:destroy, params: resource_params)
-        end.to change(Task, :count).by(-1)
+        expect { delete(:destroy, params: resource_params) }.to change(
+          Task,
+          :count
+        )
+          .by(-1)
       end
 
       it 'redirects to the release page' do
@@ -165,15 +196,19 @@ RSpec.describe UserStoriesController, type: :controller do
       before { @user_story = create(:user_story_with_accept_tests) }
 
       it 'destroys the requested UserStory' do
-        expect do
-          delete(:destroy, params: resource_params)
-        end.to change(UserStory, :count).by(-1)
+        expect { delete(:destroy, params: resource_params) }.to change(
+          UserStory,
+          :count
+        )
+          .by(-1)
       end
 
       it 'destroys AcceptTest from requested UserStory' do
-        expect do
-          delete(:destroy, params: resource_params)
-        end.to change(AcceptTest, :count).by(-1)
+        expect { delete(:destroy, params: resource_params) }.to change(
+          AcceptTest,
+          :count
+        )
+          .by(-1)
       end
 
       it 'redirects to the release page' do

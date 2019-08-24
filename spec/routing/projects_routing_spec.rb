@@ -17,7 +17,10 @@ RSpec.describe ProjectsController, type: :routing do
     end
 
     it 'routes to #edit' do
-      expect(get: '/projects/1/edit').to route_to('projects#edit', project_id: '1')
+      expect(get: '/projects/1/edit').to route_to(
+        'projects#edit',
+        project_id: '1'
+      )
     end
 
     it 'routes to #create' do
@@ -29,11 +32,17 @@ RSpec.describe ProjectsController, type: :routing do
     end
 
     it 'routes to #update via PATCH' do
-      expect(patch: '/projects/1').to route_to('projects#update', project_id: '1')
+      expect(patch: '/projects/1').to route_to(
+        'projects#update',
+        project_id: '1'
+      )
     end
 
     it 'routes to #destroy' do
-      expect(delete: '/projects/1').to route_to('projects#destroy', project_id: '1')
+      expect(delete: '/projects/1').to route_to(
+        'projects#destroy',
+        project_id: '1'
+      )
     end
   end
 end

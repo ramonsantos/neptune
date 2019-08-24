@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class TasksController < ApplicationController
-  before_action :set_task, only: [:edit, :update, :destroy]
-  before_action :user_story, only: [:new]
+  before_action :set_task, only: %i[edit update destroy]
+  before_action :user_story, only: %i[new]
 
   # GET /tasks/new
   def new
@@ -10,15 +10,19 @@ class TasksController < ApplicationController
   end
 
   # GET /tasks/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /tasks
   def create
     @task = Task.new(task_params)
 
     if @task.save
-      redirect_to user_story_path(params[:project_id], params[:release_id], params[:user_story_id]), notice: 'Task was successfully created.'
+      redirect_to user_story_path(
+                    params[:project_id],
+                    params[:release_id],
+                    params[:user_story_id]
+                  ),
+                  notice: 'Task was successfully created.'
     else
       render :new
     end
@@ -27,7 +31,12 @@ class TasksController < ApplicationController
   # PATCH/PUT /tasks/1
   def update
     if @task.update(task_params)
-      redirect_to user_story_path(params[:project_id], params[:release_id], params[:user_story_id]), notice: 'Task was successfully updated.'
+      redirect_to user_story_path(
+                    params[:project_id],
+                    params[:release_id],
+                    params[:user_story_id]
+                  ),
+                  notice: 'Task was successfully updated.'
     else
       render :edit
     end
@@ -36,7 +45,12 @@ class TasksController < ApplicationController
   # DELETE /tasks/1
   def destroy
     @task.destroy
-    redirect_to user_story_path(params[:project_id], params[:release_id], params[:user_story_id]), notice: 'Task was successfully destroyed.'
+    redirect_to user_story_path(
+                  params[:project_id],
+                  params[:release_id],
+                  params[:user_story_id]
+                ),
+                notice: 'Task was successfully destroyed.'
   end
 
   private
@@ -51,8 +65,11 @@ class TasksController < ApplicationController
 
   def user_story
     @user_story ||= find_user_story
-  rescue
-    redirect_to release_path(project_id: params[:project_id], release_id: params[:release_id])
+  rescue StandardError
+    redirect_to release_path(
+                  project_id: params[:project_id],
+                  release_id: params[:release_id]
+                )
   end
 
   def find_user_story

@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class UserStoriesController < ApplicationController
-  before_action :set_user_story, only: [:show, :edit, :update, :destroy]
-  before_action :release, only: [:new, :show]
+  before_action :set_user_story, only: %i[show edit update destroy]
+  before_action :release, only: %i[new show]
 
   # GET /user_stories/1
   def show
@@ -17,15 +17,15 @@ class UserStoriesController < ApplicationController
   end
 
   # GET /user_stories/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /user_stories
   def create
     @user_story = UserStory.new(user_story_params)
 
     if @user_story.save
-      redirect_to release_path(params[:project_id], params[:release_id]), notice: 'User story was successfully created.'
+      redirect_to release_path(params[:project_id], params[:release_id]),
+                  notice: 'User story was successfully created.'
     else
       render :new
     end
@@ -34,7 +34,8 @@ class UserStoriesController < ApplicationController
   # PATCH/PUT /user_stories/1
   def update
     if @user_story.update(user_story_params)
-      redirect_to release_path(params[:project_id], params[:release_id]), notice: 'User story was successfully updated.'
+      redirect_to release_path(params[:project_id], params[:release_id]),
+                  notice: 'User story was successfully updated.'
     else
       render :edit
     end
@@ -43,7 +44,8 @@ class UserStoriesController < ApplicationController
   # DELETE /user_stories/1
   def destroy
     @user_story.destroy
-    redirect_to release_path(params[:project_id], params[:release_id]), notice: 'User story was successfully destroyed.'
+    redirect_to release_path(params[:project_id], params[:release_id]),
+                notice: 'User story was successfully destroyed.'
   end
 
   private
@@ -55,12 +57,17 @@ class UserStoriesController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def user_story_params
-    params.require(:user_story).permit(:name, :description, :situation, :release_id)
+    params.require(:user_story).permit(
+      :name,
+      :description,
+      :situation,
+      :release_id
+    )
   end
 
   def release
     @release ||= find_release
-  rescue
+  rescue StandardError
     redirect_to project_path(project_id: params[:project_id])
   end
 

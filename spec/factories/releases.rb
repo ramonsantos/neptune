@@ -12,12 +12,10 @@ FactoryBot.define do
     end
 
     trait :with_user_stories do
-      after(:create) do |release|
-        create(:user_story, release: release)
-      end
+      after(:create) { |release| create(:user_story, release: release) }
     end
 
-    factory :release_default, traits: [:default]
-    factory :release_with_user_stories, traits: [:with_user_stories]
+    factory :release_default, traits: %i[default]
+    factory :release_with_user_stories, traits: %i[with_user_stories]
   end
 end

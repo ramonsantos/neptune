@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class AcceptTestsController < ApplicationController
-  before_action :set_accept_test, only: [:edit, :update, :destroy]
-  before_action :user_story, only: [:new]
+  before_action :set_accept_test, only: %i[edit update destroy]
+  before_action :user_story, only: %i[new]
 
   # GET /accept_tests/new
   def new
@@ -10,15 +10,19 @@ class AcceptTestsController < ApplicationController
   end
 
   # GET /accept_tests/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /accept_tests
   def create
     @accept_test = AcceptTest.new(accept_test_params)
 
     if @accept_test.save
-      redirect_to user_story_path(params[:project_id], params[:release_id], params[:user_story_id]), notice: 'Accept test was successfully created.'
+      redirect_to user_story_path(
+                    params[:project_id],
+                    params[:release_id],
+                    params[:user_story_id]
+                  ),
+                  notice: 'Accept test was successfully created.'
     else
       render :new
     end
@@ -27,7 +31,12 @@ class AcceptTestsController < ApplicationController
   # PATCH/PUT /accept_tests/1
   def update
     if @accept_test.update(accept_test_params)
-      redirect_to user_story_path(params[:project_id], params[:release_id], params[:user_story_id]), notice: 'Accept test was successfully updated.'
+      redirect_to user_story_path(
+                    params[:project_id],
+                    params[:release_id],
+                    params[:user_story_id]
+                  ),
+                  notice: 'Accept test was successfully updated.'
     else
       render :edit
     end
@@ -36,7 +45,12 @@ class AcceptTestsController < ApplicationController
   # DELETE /accept_tests/1
   def destroy
     @accept_test.destroy
-    redirect_to user_story_path(params[:project_id], params[:release_id], params[:user_story_id]), notice: 'Accept test was successfully destroyed.'
+    redirect_to user_story_path(
+                  params[:project_id],
+                  params[:release_id],
+                  params[:user_story_id]
+                ),
+                notice: 'Accept test was successfully destroyed.'
   end
 
   private
@@ -53,8 +67,11 @@ class AcceptTestsController < ApplicationController
 
   def user_story
     @user_story ||= find_user_story
-  rescue
-    redirect_to release_path(project_id: params[:project_id], release_id: params[:release_id])
+  rescue StandardError
+    redirect_to release_path(
+                  project_id: params[:project_id],
+                  release_id: params[:release_id]
+                )
   end
 
   def find_user_story

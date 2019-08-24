@@ -3,19 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe ReleasesController, type: :controller do
-  let(:valid_attributes) do
-    {
-      project_id: @project.id,
-      name: 'Second Release'
-    }
-  end
+  let(:valid_attributes) { { project_id: @project.id, name: 'Second Release' } }
 
-  let(:invalid_attributes) do
-    {
-      project_id: @project.id,
-      name: ''
-    }
-  end
+  let(:invalid_attributes) { { project_id: @project.id, name: '' } }
 
   before { @project = create(:project) }
 
@@ -66,22 +56,33 @@ RSpec.describe ReleasesController, type: :controller do
   describe 'POST #create' do
     context 'with valid params' do
       it 'creates a new Release' do
-        expect do
-          post(:create, params: { project_id: @project.id, release: valid_attributes })
-        end.to change(Release, :count).by(1)
+        expect {
+          post(
+            :create,
+            params: { project_id: @project.id, release: valid_attributes }
+          )
+        }.to change(Release, :count).by(1)
       end
 
       it 'redirects to the created release' do
-        post(:create, params: { project_id: @project.id, release: valid_attributes })
-        expect(response).to redirect_to(release_path(@project.id, Release.last.id))
+        post(
+          :create,
+          params: { project_id: @project.id, release: valid_attributes }
+        )
+        expect(response).to redirect_to(
+          release_path(@project.id, Release.last.id)
+        )
       end
     end
 
     context 'with invalid params' do
       it 'does not creates a new Release' do
-        expect do
-          post(:create, params: { project_id: @project.id, release: invalid_attributes })
-        end.not_to change(Release, :count)
+        expect {
+          post(
+            :create,
+            params: { project_id: @project.id, release: invalid_attributes }
+          )
+        }.not_to change(Release, :count)
       end
     end
   end
@@ -106,7 +107,9 @@ RSpec.describe ReleasesController, type: :controller do
 
       it 'redirects to the release' do
         put(:update, params: params)
-        expect(response).to redirect_to(release_path(@project.id, Release.last.id))
+        expect(response).to redirect_to(
+          release_path(@project.id, Release.last.id)
+        )
       end
     end
 
@@ -120,28 +123,20 @@ RSpec.describe ReleasesController, type: :controller do
       end
 
       it 'does not updates the Release' do
-        expect do
-          put(:update, params: params)
-        end.not_to change(Release, :first)
+        expect { put(:update, params: params) }.not_to change(Release, :first)
       end
     end
   end
 
   describe 'DELETE #destroy' do
-    let(:params) do
-      {
-        project_id: @project.id,
-        release_id: @release.id
-      }
-    end
+    let(:params) { { project_id: @project.id, release_id: @release.id } }
 
     context 'when simple Release' do
       before { @release = create(:release) }
 
       it 'destroys the requested releases' do
-        expect do
-          delete(:destroy, params: params)
-        end.to change(Release, :count).by(-1)
+        expect { delete(:destroy, params: params) }.to change(Release, :count)
+          .by(-1)
       end
 
       it 'redirects to the releases list' do
@@ -154,15 +149,13 @@ RSpec.describe ReleasesController, type: :controller do
       before { @release = create(:release_with_user_stories) }
 
       it 'destroys the requested releases' do
-        expect do
-          delete(:destroy, params: params)
-        end.to change(Release, :count).by(-1)
+        expect { delete(:destroy, params: params) }.to change(Release, :count)
+          .by(-1)
       end
 
       it 'destroys UserStories from requested releases' do
-        expect do
-          delete(:destroy, params: params)
-        end.to change(UserStory, :count).by(-1)
+        expect { delete(:destroy, params: params) }.to change(UserStory, :count)
+          .by(-1)
       end
 
       it 'redirects to the releases list' do

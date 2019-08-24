@@ -14,18 +14,16 @@ unless ENV['TRAVIS_CI_ENV']
 end
 
 SimpleCov.start 'rails' do
-  add_filter [
-    'app/channels',
-    'app/jobs',
-    'app/mailers'
-  ]
+  add_filter %w[app/channels app/jobs app/mailers]
 end
 
 ENV['RAILS_ENV'] ||= 'test'
 
 require File.expand_path('../config/environment', __dir__)
 
-abort('The Rails environment is running in production mode!') if Rails.env.production?
+if Rails.env.production?
+  abort('The Rails environment is running in production mode!')
+end
 
 require 'rspec/rails'
 

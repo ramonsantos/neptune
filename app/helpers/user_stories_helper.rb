@@ -1,2 +1,1 @@
-module UserStoriesHelper
-end
+module UserStoriesHelper; end

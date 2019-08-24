@@ -42,9 +42,9 @@ describe ProjectsController, type: :controller do
   describe 'POST #create' do
     context 'with valid params' do
       it 'creates a new Project' do
-        expect do
+        expect {
           post(:create, params: { project: valid_attributes })
-        end.to change(Project, :count).by(1)
+        }.to change(Project, :count).by(1)
       end
 
       it 'redirects to the created project' do
@@ -55,9 +55,9 @@ describe ProjectsController, type: :controller do
 
     context 'with invalid params' do
       it 'does not creates a new Project' do
-        expect do
+        expect {
           post(:create, params: { project: invalid_attributes })
-        end.not_to change(Project, :count)
+        }.not_to change(Project, :count)
       end
     end
   end
@@ -69,22 +69,33 @@ describe ProjectsController, type: :controller do
       let(:new_attributes) { { name: 'New Name' } }
 
       it 'updates the requested project' do
-        put(:update, params: { project_id: project.to_param, project: new_attributes })
+        put(
+          :update,
+          params: { project_id: project.to_param, project: new_attributes }
+        )
         project.reload
         expect(project.name).to eq('New Name')
       end
 
       it 'redirects to the project' do
-        put(:update, params: { project_id: project.to_param, project: valid_attributes })
+        put(
+          :update,
+          params: { project_id: project.to_param, project: valid_attributes }
+        )
         expect(response).to redirect_to(project)
       end
     end
 
     context 'with invalid params' do
       it 'does not updates the Project' do
-        expect do
-          put(:update, params: { project_id: project.to_param, project: invalid_attributes })
-        end.not_to change(Project, :first)
+        expect {
+          put(
+            :update,
+            params: {
+              project_id: project.to_param, project: invalid_attributes
+            }
+          )
+        }.not_to change(Project, :first)
       end
     end
   end
@@ -94,9 +105,9 @@ describe ProjectsController, type: :controller do
       before { project }
 
       it 'destroys the requested project' do
-        expect do
+        expect {
           delete(:destroy, params: { project_id: project.to_param })
-        end.to change(Project, :count).by(-1)
+        }.to change(Project, :count).by(-1)
       end
 
       it 'redirects to the projects list' do
@@ -109,15 +120,21 @@ describe ProjectsController, type: :controller do
       before { project_with_releases }
 
       it 'destroys the requested project' do
-        expect do
-          delete(:destroy, params: { project_id: project_with_releases.to_param })
-        end.to change(Project, :count).by(-1)
+        expect {
+          delete(
+            :destroy,
+            params: { project_id: project_with_releases.to_param }
+          )
+        }.to change(Project, :count).by(-1)
       end
 
       it 'destroys Releases from requested project' do
-        expect do
-          delete(:destroy, params: { project_id: project_with_releases.to_param })
-        end.to change(Release, :count).by(-1)
+        expect {
+          delete(
+            :destroy,
+            params: { project_id: project_with_releases.to_param }
+          )
+        }.to change(Release, :count).by(-1)
       end
 
       it 'redirects to the projects list' do
