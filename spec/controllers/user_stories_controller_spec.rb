@@ -3,10 +3,20 @@
 require 'rails_helper'
 
 RSpec.describe UserStoriesController, type: :controller do
+  let!(:project) { create(:project) }
+
+  let!(:release) { create(:release) }
+
+  let!(:user_story) { create(:user_story) }
+
+  let!(:user_story_with_tasks) { create(:user_story_with_tasks) }
+
+  let!(:user_story_with_accept_tests) { create(:user_story_with_accept_tests) }
+
   let(:valid_attributes) do
     {
-      project_id: @project.id,
-      release_id: @release.id,
+      project_id: project,
+      release_id: release,
       name: 'Second User Story',
       description: 'Description...'
     }
@@ -14,186 +24,175 @@ RSpec.describe UserStoriesController, type: :controller do
 
   let(:invalid_attributes) do
     {
-      project_id: @project.id,
-      release_id: @release.id,
+      project_id: project,
+      release_id: release,
       name: 'Second User Story',
       description: ''
     }
   end
 
   let(:resource_params) do
-    { project_id: @project.id, release_id: @release.id, user_story_id: @user_story.id }
-  end
-
-  before do
-    @project = create(:project)
-    @release = create(:release)
+    { project_id: project, release_id: release, user_story_id: user_story }
   end
 
   describe 'GET #show' do
     it 'returns a success response' do
-      @user_story = create(:user_story)
       get(:show, params: resource_params)
       expect(response).to be_successful
     end
   end
 
   describe 'GET #new' do
+    def get_new(release_id)
+      get(:new, params: { project_id: project, release_id: release_id })
+    end
+
     it 'returns a success response' do
-      get(:new, params: { project_id: @project.id, release_id: @release.id })
+      get_new(release)
       expect(response).to be_successful
     end
 
-    it 'redirect without release' do
-      get(:new, params: { project_id: @project.id, release_id: 0 })
-      expect(response).to redirect_to(project_path(@project.id))
+    it 'redirects without release' do
+      get_new(0)
+      expect(response).to redirect_to(project_path(project))
     end
   end
 
   describe 'GET #edit' do
     it 'returns a success response' do
-      @user_story = create(:user_story)
       get(:edit, params: resource_params)
       expect(response).to be_successful
     end
   end
 
   describe 'POST #create' do
+    def post_create(user_story_params)
+      post(:create, params: { project_id: project, release_id: release, user_story: user_story_params })
+    end
+
     context 'with valid params' do
-      it 'creates a new UserStory' do
+      it 'creates a new user story' do
         expect do
-          post(:create, params: { project_id: @project.id, release_id: @release.id, user_story: valid_attributes })
+          post_create(valid_attributes)
         end.to change(UserStory, :count).by(1)
       end
 
       it 'shows flash notice' do
-        post(:create, params: { project_id: @project.id, release_id: @release.id, user_story: valid_attributes })
+        post_create(valid_attributes)
         expect(flash[:notice]).to eq('User story was successfully created.')
       end
 
       it 'redirects to the created user_story' do
-        post(:create, params: { project_id: @project.id, release_id: @release.id, user_story: valid_attributes })
-        expect(response).to redirect_to(release_path(@project.id, Release.last.id))
+        post_create(valid_attributes)
+        expect(response).to redirect_to(release_path(project, release))
       end
     end
 
     context 'with invalid params' do
-      it 'does not creates a new UserStory' do
+      it 'does not creates a new user story' do
         expect do
-          post(:create, params: { project_id: @project.id, release_id: @release.id, user_story: invalid_attributes })
+          post_create(invalid_attributes)
         end.not_to change(Project, :count)
       end
     end
   end
 
   describe 'PUT #update' do
-    before { @user_story = create(:user_story) }
+    def put_update(user_story_params)
+      params = {
+        project_id: project,
+        release_id: release,
+        user_story_id: user_story,
+        user_story: user_story_params
+      }
+
+      put(:update, params: params)
+    end
 
     context 'with valid params' do
-      let(:params) do
-        {
-          project_id: @project.id,
-          release_id: @release.id,
-          user_story_id: @user_story.id,
-          user_story: valid_attributes
-        }
-      end
+      before { put_update(valid_attributes) }
 
-      it 'updates the requested user_story' do
-        put(:update, params: params)
-        @user_story.reload
-        expect(@user_story.name).to eq('Second User Story')
+      it 'updates the requested user story' do
+        user_story.reload
+        expect(user_story.name).to eq('Second User Story')
       end
 
       it 'shows flash notice' do
-        put(:update, params: params)
         expect(flash[:notice]).to eq('User story was successfully updated.')
       end
 
-      it 'redirects to the user_story' do
-        put(:update, params: params)
-        expect(response).to redirect_to(release_path(@project.id, @release.id))
+      it 'redirects to the user story' do
+        expect(response).to redirect_to(release_path(project, release))
       end
     end
 
     context 'with invalid params' do
-      let(:params) do
-        {
-          project_id: @project.id,
-          release_id: @release.id,
-          user_story_id: @user_story.id,
-          user_story: invalid_attributes
-        }
-      end
-
-      it 'does not updates the UserStory' do
+      it 'does not updates the user story' do
         expect do
-          put(:update, params: params)
+          put_update(invalid_attributes)
         end.not_to change(UserStory, :first)
       end
     end
   end
 
   describe 'DELETE #destroy' do
-    context 'when simple UserStory' do
-      before { @user_story = create(:user_story) }
+    def delete_destroy(user_story_id)
+      delete(:destroy, params: { project_id: project, release_id: release, user_story_id: user_story_id })
+    end
 
-      it 'destroys the requested UserStory' do
+    context 'when simple user story' do
+      it 'destroys the requested user story' do
         expect do
-          delete(:destroy, params: resource_params)
+          delete_destroy(user_story)
         end.to change(UserStory, :count).by(-1)
       end
 
       it 'shows flash notice' do
-        delete(:destroy, params: resource_params)
+        delete_destroy(user_story)
         expect(flash[:notice]).to eq('User story was successfully destroyed.')
       end
 
       it 'redirects to the release page' do
-        delete(:destroy, params: resource_params)
-        expect(response).to redirect_to(release_path(@project.id, @release.id))
+        delete_destroy(user_story)
+        expect(response).to redirect_to(release_path(project, release))
       end
     end
 
-    context 'when UserStory with Tasks' do
-      before { @user_story = create(:user_story_with_tasks) }
-
-      it 'destroys the requested UserStory' do
+    context 'when user story with Tasks' do
+      it 'destroys the requested user story' do
         expect do
-          delete(:destroy, params: resource_params)
+          delete_destroy(user_story_with_tasks)
         end.to change(UserStory, :count).by(-1)
       end
 
-      it 'destroys Tasks from requested UserStory' do
+      it 'destroys Tasks from requested user story' do
         expect do
-          delete(:destroy, params: resource_params)
+          delete_destroy(user_story_with_tasks)
         end.to change(Task, :count).by(-1)
       end
 
       it 'redirects to the release page' do
-        delete(:destroy, params: resource_params)
-        expect(response).to redirect_to(release_path(@project.id, @release.id))
+        delete_destroy(user_story_with_tasks)
+        expect(response).to redirect_to(release_path(project, release))
       end
     end
 
-    context 'when UserStory with AcceptTest' do
-      before { @user_story = create(:user_story_with_accept_tests) }
-
-      it 'destroys the requested UserStory' do
+    context 'when user story with AcceptTest' do
+      it 'destroys the requested user story' do
         expect do
-          delete(:destroy, params: resource_params)
+          delete_destroy(user_story_with_accept_tests)
         end.to change(UserStory, :count).by(-1)
       end
 
-      it 'destroys AcceptTest from requested UserStory' do
+      it 'destroys AcceptTest from requested user story' do
         expect do
-          delete(:destroy, params: resource_params)
+          delete_destroy(user_story_with_accept_tests)
         end.to change(AcceptTest, :count).by(-1)
       end
 
       it 'redirects to the release page' do
-        delete(:destroy, params: resource_params)
-        expect(response).to redirect_to(release_path(@project.id, @release.id))
+        delete_destroy(user_story_with_accept_tests)
+        expect(response).to redirect_to(release_path(project, release))
       end
     end
   end

@@ -14,7 +14,8 @@ plugins:
     enabled: true
 
 exclude_patterns:
+  - babel.config.js
   - Gemfile.lock
-  - "**/*.png"
   - db/
-  - "*.js"
+  - spec/
+  - "**/*.png"
