@@ -3,29 +3,31 @@
 require 'rails_helper'
 
 RSpec.describe TasksController, type: :routing do
-  xdescribe 'routing' do
+  TASK_BASE_URL = '/projects/1/releases/2/user_stories/3/tasks'
+
+  describe 'routing' do
     it 'routes to #new' do
-      expect(get: '/tasks/new').to route_to('tasks#new')
+      expect(get: "#{TASK_BASE_URL}/new").to route_to('tasks#new', project_id: '1', release_id: '2', user_story_id: '3')
     end
 
     it 'routes to #edit' do
-      expect(get: '/tasks/1/edit').to route_to('tasks#edit', id: '1')
+      expect(get: "#{TASK_BASE_URL}/4/edit").to route_to('tasks#edit', project_id: '1', release_id: '2', user_story_id: '3', task_id: '4')
     end
 
     it 'routes to #create' do
-      expect(post: '/tasks').to route_to('tasks#create')
+      expect(post: TASK_BASE_URL).to route_to('tasks#create', project_id: '1', release_id: '2', user_story_id: '3')
     end
 
     it 'routes to #update via PUT' do
-      expect(put: '/tasks/1').to route_to('tasks#update', id: '1')
+      expect(put: "#{TASK_BASE_URL}/4").to route_to('tasks#update', project_id: '1', release_id: '2', user_story_id: '3', task_id: '4')
     end
 
     it 'routes to #update via PATCH' do
-      expect(patch: '/tasks/1').to route_to('tasks#update', id: '1')
+      expect(patch: "#{TASK_BASE_URL}/4").to route_to('tasks#update', project_id: '1', release_id: '2', user_story_id: '3', task_id: '4')
     end
 
     it 'routes to #destroy' do
-      expect(delete: '/tasks/1').to route_to('tasks#destroy', id: '1')
+      expect(delete: "#{TASK_BASE_URL}/4").to route_to('tasks#destroy', project_id: '1', release_id: '2', user_story_id: '3', task_id: '4')
     end
   end
 end
