@@ -29,6 +29,8 @@ abort('The Rails environment is running in production mode!') if Rails.env.produ
 
 require 'rspec/rails'
 
+require_relative 'support/controller_macros'
+
 Dir[Rails.root.join('spec', 'support', '**', '*.rb')].each { |f| require f }
 
 begin
@@ -39,6 +41,7 @@ rescue ActiveRecord::PendingMigrationError => e
 end
 
 RSpec.configure do |config|
+  # Shoulda Matchers
   Shoulda::Matchers.configure do |sm_config|
     sm_config.integrate do |with|
       with.test_framework :rspec
@@ -46,6 +49,11 @@ RSpec.configure do |config|
     end
   end
 
+  # Devise
+  config.include Devise::Test::ControllerHelpers, type: :controller
+  config.extend  ControllerMacros,                type: :controller
+
+  # FactoryBot
   config.include FactoryBot::Syntax::Methods
 
   config.use_transactional_fixtures = true

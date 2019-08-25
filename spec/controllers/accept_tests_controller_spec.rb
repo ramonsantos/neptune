@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe AcceptTestsController, type: :controller do
+  login_user
+
   let(:project) { create(:project) }
 
   let(:release) { create(:release) }

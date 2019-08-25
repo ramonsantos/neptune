@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 describe ProjectsController, type: :controller do
+  login_user
+
   let(:valid_attributes) { attributes_for(:project) }
 
   let(:invalid_attributes) { attributes_for(:project, name: nil) }
@@ -17,6 +19,21 @@ describe ProjectsController, type: :controller do
     it 'returns a success response' do
       get(:index)
       expect(response).to be_successful
+    end
+
+    context 'when user is not authorized' do
+      before do
+        sign_out(User.last)
+        get(:index)
+      end
+
+      it 'returns a redirect response' do
+        expect(response).to have_http_status(302)
+      end
+
+      it 'redirects to login page' do
+        expect(response).to redirect_to(new_user_session_path)
+      end
     end
   end
 

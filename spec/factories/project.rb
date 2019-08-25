@@ -2,6 +2,7 @@
 
 FactoryBot.define do
   factory :project do
+    user { User.first || create(:user) }
     name { 'Neptune' }
     description { 'A User Stories manager' }
     start_date { DateTime.new(2019, 6, 29) }

@@ -16,6 +16,10 @@
       <h1>
         <%= link_to('Neptune', root_path, class: 'class') %>
       </h1>
+
+      <% if user_signed_in? %>
+        <%= link_to "Sign out", destroy_user_session_path, method: :delete, class: 'sign-out-button' %>
+      <% end %>
     </header>
 
     <main class="main-content">

@@ -7,7 +7,8 @@ namespace :dev do
     puts `rake db:create`
     puts `rake db:migrate`
 
-    project = Project.create(name: 'Neptune', start_date: Date.today, description: 'Description ...')
+    user = FactoryBot.create(:user)
+    project = Project.create(name: 'Neptune', start_date: Date.today, description: 'Description ...', user: user)
 
     release0 = Release.create(name: 'Release 0', start_date: (Date.today - 30), finish_date: Date.today, active: false, project: project)
     release0.user_stories << UserStory.new(name: 'US01', description: 'Description', release: release0)

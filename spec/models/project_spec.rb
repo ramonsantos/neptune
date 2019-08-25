@@ -13,7 +13,13 @@ describe Project, type: :model do
     end
   end
 
-  context 'Validations' do
+  context 'associations' do
+    it { is_expected.to have_many(:releases).dependent(:delete_all) }
+    it { is_expected.to belong_to(:user) }
+  end
+
+  context 'validations' do
     it { is_expected.to validate_presence_of(:name) }
+    it { is_expected.to validate_presence_of(:user) }
   end
 end

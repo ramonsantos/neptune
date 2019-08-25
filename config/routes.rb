@@ -3,6 +3,8 @@
 Rails.application.routes.draw do
   root 'projects#index'
 
+  devise_for :users
+
   resources :projects, param: :project_id do
     member do
       resources :releases, param: :release_id do
