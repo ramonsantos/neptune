@@ -2,18 +2,18 @@
 
 class UserStory < ApplicationRecord
   belongs_to :release
-  has_many :accept_tests, dependent: :delete_all
-  has_many :tasks, dependent: :delete_all
+  has_many   :accept_tests, dependent: :delete_all
+  has_many   :tasks,        dependent: :delete_all
+
+  validates :description, presence: true
+  validates :name,        presence: true
+  validates :release_id,  presence: true
+  validates :situation,   presence: true
 
   enum situation: {
-    todo: 'To Do',
-    doing: 'Doing',
-    done: 'Done',
+    todo:    'To Do',
+    doing:   'Doing',
+    done:    'Done',
     aborted: 'Aborted'
   }
-
-  validates :name,        presence: true
-  validates :description, presence: true
-  validates :situation,   presence: true
-  validates :release_id,  presence: true
 end
