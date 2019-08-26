@@ -32,3 +32,7 @@ yarn-debug.log*
 
 # Test coverage files
 coverage
+
+# VS Code
+/.vscode/*
+!/.vscode/settings.json

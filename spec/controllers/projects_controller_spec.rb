@@ -28,7 +28,7 @@ describe ProjectsController, type: :controller do
       end
 
       it 'returns a redirect response' do
-        expect(response).to have_http_status(302)
+        expect(response).to have_http_status(:found)
       end
 
       it 'redirects to login page' do

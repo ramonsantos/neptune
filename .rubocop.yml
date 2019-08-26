@@ -5,22 +5,24 @@ require:
 
 AllCops:
   Exclude:
+    - config.ru
     - bin/*
     - db/**/*
     - node_modules/**/*
     - vendor/**/*
 
-Metrics/AbcSize:
+Layout/AlignHash:
   Description: >-
-                 A calculated magnitude based on number of assignments,
-                 branches, and conditions.
-  Reference: 'http://c2.com/cgi/wiki?AbcMetric'
+                 Align the elements of a hash literal if they span more than
+                 one line.
   Enabled: true
-  Max: 24
-
-Metrics/BlockLength:
-  Description: 'Avoid long blocks with many lines.'
-  Enabled: true
+  AllowMultipleStyles: true
+  EnforcedHashRocketStyle:
+    - key
+    - table
+  EnforcedColonStyle:
+    - key
+    - table
 
 Metrics/ClassLength:
   Description: 'Avoid classes longer than 100 lines of code.'
@@ -36,27 +38,9 @@ Metrics/MethodLength:
   StyleGuide: '#short-methods'
   Enabled: false
 
-Style/AndOr:
-  Description: 'Use &&/|| instead of and/or.'
-  StyleGuide: '#no-and-or-or'
-  Enabled: false
-
-Style/AsciiComments:
-  Description: 'Use only ascii symbols in comments.'
-  StyleGuide: '#english-comments'
-  Enabled: false
-
-Style/DateTime:
-  Description: 'Use Time over DateTime.'
-  StyleGuide: '#date--time'
-  Enabled: false
-
 Style/Documentation:
   Description: 'Document classes and non-namespace modules.'
   Enabled: false
-  Exclude:
-    - 'spec/**/*'
-    - 'test/**/*'
 
 Style/EmptyMethod:
   Description: 'Checks the formatting of empty method definitions.'
@@ -68,35 +52,30 @@ Style/GuardClause:
   StyleGuide: '#no-nested-conditionals'
   Enabled: false
 
-Style/NumericLiterals:
-  Description: >-
-                 Add underscores to large numeric literals to improve their
-                 readability.
-  StyleGuide: '#underscores-in-numerics'
-  Enabled: false
-
-Style/RaiseArgs:
-  Description: 'Checks the arguments passed to raise/fail.'
-  StyleGuide: '#exception-class-messages'
-  Enabled: false
-
 Style/RescueStandardError:
   Description: 'Avoid rescuing without specifying an error class.'
   Enabled: false
-#
-Style/FrozenStringLiteralComment:
-  Description: >-
-                 Add the frozen_string_literal comment to the top of files
-                 to help transition from Ruby 2.3.0 to Ruby 3.0.
-  Enabled: true
-#
+
 Style/SymbolArray:
   Description: 'Use %i or %I for arrays of symbols.'
   StyleGuide: '#percent-i'
   Enabled: false
-#
+
 Style/WordArray:
   Description: 'Use %w or %W for arrays of words.'
   StyleGuide: '#percent-w'
-  Enabled: true
+  Enabled: false
 
+# Rubocop RSpec
+RSpec/ContextWording:
+  Prefixes:
+    - associations
+    - validations
+    - when
+    - with
+
+RSpec/ExampleLength:
+  Enabled: false
+
+RSpec/NamedSubject:
+  Enabled: false

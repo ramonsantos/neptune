@@ -15,7 +15,7 @@ RSpec.describe UserStory, type: :model do
     it { is_expected.to validate_presence_of(:release_id) }
     it { is_expected.to validate_presence_of(:situation) }
     it do
-      is_expected.to define_enum_for(:situation).with_values(
+      expect(subject).to define_enum_for(:situation).with_values(
         todo:    'To Do',
         doing:   'Doing',
         done:    'Done',
