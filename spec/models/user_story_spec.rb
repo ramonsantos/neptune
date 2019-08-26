@@ -14,6 +14,14 @@ RSpec.describe UserStory, type: :model do
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_presence_of(:release_id) }
     it { is_expected.to validate_presence_of(:situation) }
+    it do
+      is_expected.to define_enum_for(:situation).with_values(
+        todo:    'To Do',
+        doing:   'Doing',
+        done:    'Done',
+        aborted: 'Aborted'
+      ).backed_by_column_of_type(:string)
+    end
   end
 
   context 'when valid user story' do
