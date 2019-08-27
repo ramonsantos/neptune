@@ -42,6 +42,7 @@ end
 
 group :development do
   gem 'awesome_print', '~> 1.8'
+  gem 'bullet', '~> 6.0', '>= 6.0.2'
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'rubocop'
   gem 'rubocop-performance'
