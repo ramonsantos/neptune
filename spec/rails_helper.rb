@@ -1,25 +1,8 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'simplecov'
-require 'simplecov-lcov'
 
-unless ENV['TRAVIS_CI_ENV']
-  SimpleCov::Formatter::LcovFormatter.config do |c|
-    c.report_with_single_file = true
-    c.lcov_file_name = 'lcov.info'
-  end
-
-  SimpleCov.formatter = SimpleCov::Formatter::LcovFormatter
-end
-
-SimpleCov.start 'rails' do
-  add_filter [
-    'app/channels',
-    'app/jobs',
-    'app/mailers'
-  ]
-end
+require_relative 'support/coveage'
 
 ENV['RAILS_ENV'] ||= 'test'
 
