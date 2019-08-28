@@ -11,27 +11,27 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div>
     <%= form.label :name %>
     <%= form.text_field :name %>
   </div>
 
-  <div class="field">
+  <div>
     <%= form.label :description %>
     <%= form.text_area :description %>
   </div>
 
-  <div class="field">
+  <div>
     <%= form.label :release_id %>
     <%= form.text_field :release_id %>
   </div>
 
-  <div class="field">
+  <div>
     <%= form.label :situation %>
     <%= form.select :situation, UserStory.situations.values, selected: UserStory.situations[user_story.situation] %>
   </div>
 
-  <div class="actions">
+  <div>
     <%= form.submit %>
   </div>
 <% end %>

@@ -11,27 +11,27 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div>
     <%= form.label :name %>
-    <%= form.text_field :name, { class: 'field-250' } %>
+    <%= form.text_field :name %>
   </div>
 
-  <div class="field">
+  <div>
     <%= form.label :start_date %>
-    <%= form.text_field :start_date, { class: 'field-250' } %>
+    <%= form.text_field :start_date %>
   </div>
 
-  <div class="field">
+  <div>
     <%= form.label :description %>
-    <%= form.text_area :description, { class: 'field-900-100' } %>
+    <%= form.text_area :description %>
   </div>
 
-  <div class="section-actions">
+  <div>
     <% cancel_path = project.id.present? ? project_path(project) : projects_path %>
 
-    <%= link_to 'Cancel', cancel_path, class: 'btn' %>
+    <%= link_to 'Cancel', cancel_path %>
 
-    <div class="btn btn-primary">
+    <div>
       <%= form.button  %>
     </div>
   </div>

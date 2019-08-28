@@ -12,17 +12,17 @@
   </head>
 
   <body>
-    <header class="header">
+    <header>
       <h1>
-        <%= link_to('Neptune', root_path, class: 'class') %>
+        <%= link_to('Neptune', root_path) %>
       </h1>
 
       <% if user_signed_in? %>
-        <%= link_to "Sign out", destroy_user_session_path, method: :delete, class: 'sign-out-button' %>
+        <%= link_to "Sign out", destroy_user_session_path, method: :delete %>
       <% end %>
     </header>
 
-    <main class="main-content">
+    <main>
       <%= yield %>
     </main>
   </body>

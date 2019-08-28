@@ -1,23 +1,23 @@
-<section class="section-title">
+<section>
   <h1>Projects</h1>
 </section>
 
-<section class="section-notice">
+<section>
   <p id="notice"><%= notice %></p>
 </section>
 
-<section class="section-projects-options">
+<section>
   <%= form_tag("/search", method: "get") do %>
     <%= text_field_tag(:q) %>
   <% end %>
 
-  <%= link_to 'New Project', new_project_path, class: 'btn btn-primary' %>
+  <%= link_to 'New Project', new_project_path %>
 </section>
 
-<section class="section-projects-list">
+<section>
   <ul>
     <% @projects.each do |project| %>
-      <li class="project-item">
+      <li>
         <h2><%= link_to project.name, project %></h2>
       </li>
     <% end %>
