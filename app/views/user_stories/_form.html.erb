@@ -28,7 +28,7 @@
 
   <div class="field">
     <%= form.label :situation %>
-    <%= form.select :situation, UserStory.situations.values, selected: UserStory.situations[@user_story.situation] %>
+    <%= form.select :situation, UserStory.situations.values, selected: UserStory.situations[user_story.situation] %>
   </div>
 
   <div class="actions">

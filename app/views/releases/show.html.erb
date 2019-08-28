@@ -16,7 +16,7 @@ Make Active/Inactive |
 <div>
   <h2>To Do</h2>
 
-  <% user_stories_by_situation('todo').each do |user_story| %>
+  <% user_stories_by_situation(user_stories, 'todo').each do |user_story| %>
     <h3><%= link_to(user_story.name, user_story_path(params[:project_id], @release.id, user_story.id)) %></h3>
   <% end %>
 </div>
@@ -24,7 +24,7 @@ Make Active/Inactive |
 <div>
   <h2>Doing</h2>
 
-  <% user_stories_by_situation('doing').each do |user_story| %>
+  <% user_stories_by_situation(user_stories, 'doing').each do |user_story| %>
     <h3><%= link_to(user_story.name, user_story_path(params[:project_id], @release.id, user_story.id)) %></h3>
   <% end %>
 </div>
@@ -32,7 +32,7 @@ Make Active/Inactive |
 <div>
   <h2>Done</h2>
 
-  <% user_stories_by_situation('done').each do |user_story| %>
+  <% user_stories_by_situation(user_stories, 'done').each do |user_story| %>
     <h3><%= link_to(user_story.name, user_story_path(params[:project_id], @release.id, user_story.id)) %></h3>
   <% end %>
 </div>
@@ -40,7 +40,7 @@ Make Active/Inactive |
 <div>
   <h2>Aborted</h2>
 
-  <% user_stories_by_situation('aborted').each do |user_story| %>
+  <% user_stories_by_situation(user_stories, 'aborted').each do |user_story| %>
     <h3><%= link_to(user_story.name, user_story_path(params[:project_id], @release.id, user_story.id)) %></h3>
   <% end %>
 </div>

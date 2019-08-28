@@ -4,6 +4,7 @@ class AcceptTestsController < ApplicationController
   include UserStoryActivities
 
   before_action :set_accept_test, only: [:edit, :update, :destroy]
+  before_action :user_story, only: [:new]
 
   # GET /accept_tests/new
   def new

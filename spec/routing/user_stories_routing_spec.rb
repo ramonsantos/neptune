@@ -2,9 +2,9 @@
 
 require 'rails_helper'
 
-RSpec.describe UserStoriesController, type: :routing do
-  USER_STORY_BASE_URL = '/projects/1/releases/2/user_stories'
+USER_STORY_BASE_URL = '/projects/1/releases/2/user_stories'
 
+RSpec.describe UserStoriesController, type: :routing do
   describe 'routing' do
     it 'routes to #new' do
       expect(get: "#{USER_STORY_BASE_URL}/new").to route_to('user_stories#new', project_id: '1', release_id: '2')

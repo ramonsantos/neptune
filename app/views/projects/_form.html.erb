@@ -27,7 +27,7 @@
   </div>
 
   <div class="section-actions">
-    <% cancel_path = project.id.present? ? project_path(@project) : projects_path %>
+    <% cancel_path = project.id.present? ? project_path(project) : projects_path %>
 
     <%= link_to 'Cancel', cancel_path, class: 'btn' %>
 

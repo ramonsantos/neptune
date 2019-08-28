@@ -2,9 +2,9 @@
 
 require 'rails_helper'
 
-RSpec.describe TasksController, type: :routing do
-  TASK_BASE_URL = '/projects/1/releases/2/user_stories/3/tasks'
+TASK_BASE_URL = '/projects/1/releases/2/user_stories/3/tasks'
 
+RSpec.describe TasksController, type: :routing do
   describe 'routing' do
     it 'routes to #new' do
       expect(get: "#{TASK_BASE_URL}/new").to route_to('tasks#new', project_id: '1', release_id: '2', user_story_id: '3')

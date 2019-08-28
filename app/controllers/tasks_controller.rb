@@ -4,6 +4,7 @@ class TasksController < ApplicationController
   include UserStoryActivities
 
   before_action :set_task, only: [:edit, :update, :destroy]
+  before_action :user_story, only: [:new]
 
   # GET /tasks/new
   def new

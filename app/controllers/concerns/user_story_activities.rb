@@ -3,10 +3,6 @@
 module UserStoryActivities
   extend ActiveSupport::Concern
 
-  included do
-    before_action :user_story, only: [:new]
-  end
-
   def user_story
     @user_story ||= find_user_story
   rescue

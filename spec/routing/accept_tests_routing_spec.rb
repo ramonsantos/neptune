@@ -2,9 +2,9 @@
 
 require 'rails_helper'
 
-RSpec.describe AcceptTestsController, type: :routing do
-  ACCEPT_TEST_BASE_URL = '/projects/1/releases/2/user_stories/3/accept_tests'
+ACCEPT_TEST_BASE_URL = '/projects/1/releases/2/user_stories/3/accept_tests'
 
+RSpec.describe AcceptTestsController, type: :routing do
   describe 'routing' do
     it 'routes to #new' do
       expect(get: "#{ACCEPT_TEST_BASE_URL}/new").to route_to('accept_tests#new', project_id: '1', release_id: '2', user_story_id: '3')
