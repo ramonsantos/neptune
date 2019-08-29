@@ -70,6 +70,9 @@ Style/WordArray:
   Enabled: false
 
 # Rubocop RSpec
+Capybara/FeatureMethods:
+  Enabled: false
+
 RSpec/ContextWording:
   Prefixes:
     - associations
@@ -78,6 +81,9 @@ RSpec/ContextWording:
     - with
 
 RSpec/ExampleLength:
+  Enabled: false
+
+RSpec/MultipleExpectations:
   Enabled: false
 
 RSpec/NamedSubject:
