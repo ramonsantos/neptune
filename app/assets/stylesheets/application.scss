@@ -1,8 +1,10 @@
 @import 'variables';
 @import 'mixins';
 @import 'reset';
-@import 'components';
+@import 'global';
 @import 'header';
+
+@import 'components';
 @import 'global';
 @import 'projects';
 @import 'releases';

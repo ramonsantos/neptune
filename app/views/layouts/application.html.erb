@@ -2,28 +2,46 @@
 <html>
   <head>
     <title>Neptune</title>
+
+    <meta charset="utf-8">
+    <meta content="width=device-width,initial-scale=1" name="viewport">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <%= favicon_link_tag asset_path('favicon.png') %>
-  </head>
 
-  <body>
-    <header>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+  </head>
+</html>
+
+<body>
+  <header class="header">
+    <div class="header-content">
       <h1>
-        <%= link_to('Neptune', root_path) %>
+        <%= link_to('Neptune', root_path, class: 'site-title') %>
       </h1>
 
-      <% if user_signed_in? %>
-        <%= link_to "Sign out", destroy_user_session_path, method: :delete %>
-      <% end %>
-    </header>
+      <a id="menuBar" class="mobile-menu-bar" href="javascript:void(0);"><i class="fa fa-bars" aria-hidden="true"></i></a>
 
-    <main>
-      <%= yield %>
-    </main>
-  </body>
+      <nav class="header-menu">
+        <ul>
+          <li>
+            <% if user_signed_in? %>
+              <%= link_to "Sign out", destroy_user_session_path, method: :delete %>
+            <% end %>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main-section">
+    <%= yield %>
+  </main>
+</body>
 </html>
