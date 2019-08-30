@@ -1,0 +1,53 @@
+.mobile-menu {
+  background: $menu-mobile-background-color;
+  position: fixed;
+	top: 0;
+  right: -250px;
+  z-index: 2;
+  width: 250px;
+  height: 100%;
+
+  a {
+    color: $header-text-color;
+  }
+}
+
+.mobile-menu-show {
+  @include mobile-menu-transition(-250px, $transition-time);
+}
+
+.mobile-menu-hidden {
+  @include mobile-menu-transition(0px, $transition-time);
+}
+
+.menu-close-btn {
+  display: block;
+  padding: 10px 15px 10px;
+  font-size: 31px;
+  text-align: right;
+}
+
+.option-links {
+  display: block;
+  font-size: 20px;
+  padding: 10px 15px 10px 15px;
+
+  a {
+    display: block;
+    padding: 15px 0 15px;
+    width: 220px;
+    border: 0;
+    border-top: $border;
+  }
+
+  a:active,
+  a:hover {
+    text-decoration: none;
+  }
+
+  li:last-child {
+    width: 220px;
+    border: 0;
+    border-bottom: $border;
+  }
+}

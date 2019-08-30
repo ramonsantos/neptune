@@ -1,6 +1,10 @@
 $principal-color: #8a2be2;
 $header-text-color: aliceblue;
 $text-color: #3e4d5c;
+$border-bottom-color: #eee;
+$menu-mobile-background-color: dimgray;
+
+$border: 1px solid $border-bottom-color;
 
 $header-section-breakpoint: 885px;
-
+$transition-time: .25s;
