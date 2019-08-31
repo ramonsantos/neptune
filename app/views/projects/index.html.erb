@@ -1,18 +1,18 @@
-<section>
+<header class="content-header">
   <h1>Projects</h1>
-</section>
+</header>
 
 <section>
-  <p id="notice"><%= notice %></p>
+  <%= render partial: 'layouts/shared/notifications'  %>
 </section>
 
-<section>
+<nav>
   <%= form_tag("/search", method: "get") do %>
     <%= text_field_tag(:q) %>
   <% end %>
 
   <%= link_to 'New Project', new_project_path %>
-</section>
+</nav>
 
 <section>
   <ul>
