@@ -68,8 +68,8 @@
     </aside>
 
     <script type="text/javascript">
-      let toggleMobileMenu = function (event) {
-        let mobileMenu = document.getElementById("mobileMenu");
+      var toggleMobileMenu = function (event) {
+        var mobileMenu = document.getElementById("mobileMenu");
 
         mobileMenu.classList.toggle("mobile-menu-show");
         mobileMenu.classList.toggle("mobile-menu-hidden");
@@ -77,8 +77,34 @@
         event.preventDefault();
       };
 
-      document.getElementById('menuBar').addEventListener('click', toggleMobileMenu);
-      document.getElementById('menuClose').addEventListener('click', toggleMobileMenu);
+      var menuBar = document.getElementById('menuBar');
+      if (menuBar != null) {
+        menuBar.addEventListener('click', toggleMobileMenu);
+      }
+
+      var menuClose = document.getElementById('menuClose');
+      if (menuClose != null) {
+        menuClose.addEventListener('click', toggleMobileMenu);
+      }
+
+
+      var toggleSectionOptions = function (event) {
+        var sectionOptions = document.getElementById("sectionOptions");
+        var mainSectionTitle = document.getElementById("mainSectionTitle");
+
+        sectionOptions.classList.toggle("section-options-hidden");
+        mainSectionTitle.classList.toggle("main-section-title-hidden");
+        sectionOptions.classList.toggle("section-options-show");
+        mainSectionTitle.classList.toggle("main-section-title-show");
+
+
+        event.preventDefault();
+      };
+
+      var mainSectionOptionsButton = document.getElementById('mainSectionOptionsButton');
+      if (mainSectionOptionsButton != null) {
+        mainSectionOptionsButton.addEventListener('click', toggleSectionOptions);
+      }
     </script>
   <% end %>
 </body>

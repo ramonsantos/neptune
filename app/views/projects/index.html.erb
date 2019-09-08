@@ -1,17 +1,28 @@
-<header class="content-header">
-  <h1>Projects</h1>
-</header>
-
 <section>
   <%= render partial: 'layouts/shared/notifications'  %>
 </section>
+
+<header class="content-header">
+  <section id="mainSectionTitle" class="main-section-title-hidden">
+    <h1>Projects</h1>
+
+    <a id="mainSectionOptionsButton" class="main-section-options-button" href="javascript:void(0);">
+      <i class="fa fa-bars" aria-hidden="true"></i>
+    </a>
+  </section>
+
+
+  <nav id="sectionOptions" class="section-options-hidden">
+    <ul>
+      <li><%= link_to 'New Project', new_project_path %></li>
+    </ul>
+  </nav>
+</header>
 
 <nav>
   <%= form_tag("/search", method: "get") do %>
     <%= text_field_tag(:q) %>
   <% end %>
-
-  <%= link_to 'New Project', new_project_path %>
 </nav>
 
 <section>
