@@ -3,9 +3,7 @@
 namespace :dev do
   desc 'Seed data for development'
   task seed: :environment do
-    puts `rake db:drop`
-    puts `rake db:create`
-    puts `rake db:migrate`
+    db_config
 
     user = FactoryBot.create(:user)
     project = Project.create(name: 'Neptune', start_date: Time.zone.today, description: 'Description ...', user: user)
@@ -31,9 +29,20 @@ namespace :dev do
     project.save
   end
 
+  desc 'Configure Database'
+  task db_config: :environment do
+    db_config
+  end
+
   desc 'Check code health'
   task check: :environment do
     [:brakeman, :rails_best_practices, :rubycritic].each { |tool| run_tool(tool) }
+  end
+
+  def db_config
+    puts `rake db:drop`
+    puts `rake db:create`
+    puts `rake db:migrate`
   end
 
   def run_tool(tool)
