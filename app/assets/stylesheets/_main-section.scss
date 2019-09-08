@@ -7,8 +7,8 @@
 .content-header {
   border-bottom: 2px solid $principal-color;
   font-size: 1.75em;
-  padding-bottom: 10px;
   margin-bottom: 10px;
+  padding-bottom: 10px;
 
   h1 {
     display: inline;
@@ -32,16 +32,15 @@
 }
 
 .section-options-show {
-  display: block;
   border-top: 2px solid $principal-color;
-
+  display: block;
   margin-bottom: -10px;
 
   a {
     color: $text-color;
+    display: block;
     font-size: large;
     padding: 4px 0;
-    display: block;
   }
 
   ul {
@@ -51,8 +50,8 @@
   li {
     border-top: 1px solid $text-color;
   }
+
   li:first-child {
-    border-top: none;
+    border-top: 0;
   }
 }
-

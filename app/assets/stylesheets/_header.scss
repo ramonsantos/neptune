@@ -1,18 +1,18 @@
 .header {
-  display: block;
-  width: 100%;
   background-color: $principal-color;
-  box-shadow: 0 1px 3px #ddd;
+  box-shadow: 0 1px 3px #dddddd;
+  display: block;
   margin-bottom: 25px;
   position: fixed;
+  width: 100%;
   z-index: 1;
 }
 
 .header-content {
-  position: relative;
-  padding: 0px 15px 0px 15px;
-  margin-right: auto;
   margin-left: auto;
+  margin-right: auto;
+  padding: 0 15px;
+  position: relative;
 
   h1 {
     display: inline;
@@ -21,7 +21,7 @@
 
   a {
     color: $header-text-color;
-    padding: 10px 0px 10px 0px;
+    padding: 10px 0;
   }
 }
 
@@ -44,8 +44,8 @@
   }
 
   a {
-    padding: 17px 0px 17px 0px;
     margin-left: 15px;
+    padding: 17px 0;
     text-decoration: none;
   }
 
